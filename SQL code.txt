@@ -1,0 +1,25 @@
+# Run these queries one by one 
+CREATE DATABASE autoshop; 
+# Make sure to select the new database as the current schema 
+CREATE TABLE users (ID INT PRIMARY KEY,
+	username VARCHAR(20) NOT NULL,
+	passw VARCHAR(72) NOT NULL,
+	full_name varchar(50) NOT NULL,
+	phone_number VARCHAR(11) NOT NULL,
+	age INT NOT NULL
+);
+
+CREATE TABLE CARS (
+    car_id INT PRIMARY KEY NOT NULL,
+    owner_ID INT NOT NULL,
+    model VARCHAR(20) NOT NULL,
+    manu VARCHAR(20) NOT NULL ,
+    manu_year VARCHAR(4) NOT NULL,
+    engine_capacity INT NOT NULL,
+    horsepower INT NOT NULL,
+    top_speed INT NOT NULL,
+    price INT NOT NULL,
+    photo TEXT NOT NULL,
+    car_description TEXT NOT NULL,
+    FOREIGN KEY (owner_ID) REFERENCES users (ID) 
+);
