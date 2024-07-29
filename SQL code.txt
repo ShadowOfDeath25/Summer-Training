@@ -21,6 +21,8 @@ CREATE TABLE CARS (
     price INT NOT NULL,
     photo TEXT NOT NULL,
     car_description TEXT NOT NULL,
+    type VARCHAR(4) NOT NULL,
+    state VARCHAR(10) NOT NULL,
     FOREIGN KEY (owner_ID) REFERENCES users (ID) 
 );
 
