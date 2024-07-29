@@ -31,6 +31,7 @@ owner_id VARCHAR(60) NOT NULL,
 renter_id VARCHAR(60) NOT NULL,
 rental_date DATE NOT NULL,
 return_date DATE NOT NULL,
+price INT NOT NULL,
 FOREIGN KEY (owner_ID) REFERENCES users (ID),
 FOREIGN KEY (renter_id) REFERENCES users (ID),
 FOREIGN KEY (car_id) REFERENCES cars (car_id)
