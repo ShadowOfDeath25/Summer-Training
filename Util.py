@@ -13,7 +13,7 @@ def create_button(window, width, height, color="red", text="Button", font=("Helv
     frame.pack_propagate(False)
     btn.config(fg="#FEE9E7", highlightthickness=0, borderwidth=0, cursor="hand2", text=text, font=font)
     btn.pack(fill=BOTH, expand=True)
-    return frame
+    return frame,btn
 
 
 def create_entry(window, width, height, font=("Helvetica", 12)):
