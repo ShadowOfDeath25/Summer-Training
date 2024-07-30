@@ -13,7 +13,7 @@ def create_button(window, width, height, color="red", text="Button", font=("Helv
     frame.pack_propagate(False)
     btn.config(fg="#FEE9E7", highlightthickness=0, borderwidth=0, cursor="hand2", text=text, font=font)
     btn.pack(fill=BOTH, expand=True)
-    return frame,btn
+    return frame, btn
 
 
 def create_entry(window, width, height, font=("Helvetica", 12)):
@@ -32,7 +32,9 @@ def create_label(window, width, height, text, font=("Helvetica", 12)):
     return frame
 
 
-def create_password(window, width, height, image_hidden, image_shown, font=("Helvetica", 12)):
+def create_password(window, width, height, font=("Helvetica", 12)):
+    global image_hide_path
+    global image_show_path
     def hide(event):
 
         if entry["show"] == "*":
@@ -41,6 +43,9 @@ def create_password(window, width, height, image_hidden, image_shown, font=("Hel
         else:
             vision.config(image=image_hidden)
             entry.config(show="*")
+
+    image_shown= PhotoImage(file=image_show_path)
+    image_hidden= PhotoImage(file=image_hide_path)
 
     parent_frame = Frame(window, bg="#D9D9D9", height=height, width=width)
     frame = Frame(parent_frame, width=width, height=height, bg="#D9D9D9")
@@ -55,4 +60,6 @@ def create_password(window, width, height, image_hidden, image_shown, font=("Hel
     return parent_frame
 
 
+image_hide_path = "hidden.png"
+image_show_path = "visible.png"
 
