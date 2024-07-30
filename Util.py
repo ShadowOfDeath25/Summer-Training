@@ -27,7 +27,7 @@ def create_entry(window, width, height, font=("Helvetica", 12)):
 def create_label(window, width, height, text, font=("Helvetica", 12)):
     frame = Frame(window, width=width, height=height, bg="#FFFFFF")
     frame.pack_propagate(False)
-    label = Label(frame, text=text, font=font)
+    label = Label(frame, text=text, font=font, bg="#FFFFFF")
     label.pack(fill=BOTH, expand=True)
     return frame
 
@@ -35,6 +35,7 @@ def create_label(window, width, height, text, font=("Helvetica", 12)):
 def create_password(window, width, height, font=("Helvetica", 12)):
     global image_hide_path
     global image_show_path
+
     def hide(event):
 
         if entry["show"] == "*":
@@ -44,22 +45,27 @@ def create_password(window, width, height, font=("Helvetica", 12)):
             vision.config(image=image_hidden)
             entry.config(show="*")
 
-    image_shown= PhotoImage(file=image_show_path)
-    image_hidden= PhotoImage(file=image_hide_path)
+    image_shown = PhotoImage(file=image_show_path)
+    image_hidden = PhotoImage(file=image_hide_path)
 
     parent_frame = Frame(window, bg="#D9D9D9", height=height, width=width)
+    parent_frame.grid_propagate(False)
+    parent_frame.pack_propagate(False)
     frame = Frame(parent_frame, width=width, height=height, bg="#D9D9D9")
+
     entry = Entry(frame, bg="#D9D9D9", font=font, borderwidth=0, show="*")
-    frame.pack_propagate(False)
     entry.pack(fill=BOTH, expand=True)
     hidden = True
-    vision = Label(parent_frame, image=image_hidden, bg="#D9D9D9", cursor="hand2")
+    vision_frame = Frame(parent_frame, width=32, height=32,bg="#D9D9D9")
+    vision = Label(vision_frame, image=image_hidden, bg="#D9D9D9", cursor="hand2")
     vision.bind("<Button-1>", hide)
-    frame.pack(padx=10, side=LEFT)
-    vision.pack(padx=10, side=RIGHT)
+    vision_frame.pack_propagate(False)
+    vision.pack(fill=BOTH, expand=True)
+    frame.pack(side= LEFT,fill=BOTH, expand=True,padx=10)
+    vision_frame.pack(side = RIGHT,padx=4)
+
     return parent_frame
 
 
-image_hide_path = "hidden.png"
-image_show_path = "visible.png"
-
+image_hide_path = "photos/hidden.png"
+image_show_path = "photos/visible.png"
