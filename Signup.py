@@ -5,8 +5,6 @@ import DbConnection as db
 import Util as ut
 import bcrypt
 import uuid
-
-
 class Signup:
     mainWindow = Tk()
     signup_lbl = ut.create_label(mainWindow, width=138, height=65, text="Sign Up", font=("Helvetica", 26, "bold"))

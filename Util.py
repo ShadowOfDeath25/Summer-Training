@@ -1,7 +1,16 @@
 from tkinter import *
 from tkinter import ttk
+from PIL import Image, ImageTk
 
-
+def create_image(root, width, height, photo_path):
+    frame = ttk.Frame(root)
+    frame.pack()
+    image = Image.open(photo_path)
+    image = image.resize((width, height))
+    photo = ImageTk.PhotoImage(image)
+    label = ttk.Label(root, image=photo)
+    label.image = photo
+    return frame,label
 def create_button(window, width, height, color="red", text="Button", font=("Helvetica", 10)):
     frame = Frame(window, width=width, height=height)
     btn = Button(frame)
