@@ -6,6 +6,6 @@ def connect_db():
     db_user = os.environ['db_user']
     db_pass = os.environ['db_pass']
     mydb = db.connect(host='localhost',
-                      username='root',
-                      password='mo992004')
+                      username=db_user,
+                      password=db_pass)
     return mydb
