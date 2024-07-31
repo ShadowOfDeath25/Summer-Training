@@ -2,15 +2,19 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 
+
 def create_image(root, width, height, photo_path):
-    frame = ttk.Frame(root)
+    frame = Frame(root)
     frame.pack()
     image = Image.open(photo_path)
     image = image.resize((width, height))
     photo = ImageTk.PhotoImage(image)
-    label = ttk.Label(root, image=photo)
+    label = Label(root, image=photo)
     label.image = photo
-    return frame,label
+    label.config(bg="#FFFFFF")
+    return frame, label
+
+
 def create_button(window, width, height, color="red", text="Button", font=("Helvetica", 10)):
     frame = Frame(window, width=width, height=height)
     btn = Button(frame)
@@ -30,7 +34,7 @@ def create_entry(window, width, height, font=("Helvetica", 12)):
     entry = Entry(frame, bg="#D9D9D9", font=font, borderwidth=0)
     frame.pack_propagate(False)
     entry.pack(fill=BOTH, expand=True, padx=10, pady=10)
-    return frame,entry
+    return frame, entry
 
 
 def create_label(window, width, height, text, font=("Helvetica", 12)):
@@ -65,15 +69,15 @@ def create_password(window, width, height, font=("Helvetica", 12)):
     entry = Entry(frame, bg="#D9D9D9", font=font, borderwidth=0, show="*")
     entry.pack(fill=BOTH, expand=True)
     hidden = True
-    vision_frame = Frame(parent_frame, width=32, height=32,bg="#D9D9D9")
+    vision_frame = Frame(parent_frame, width=32, height=32, bg="#D9D9D9")
     vision = Label(vision_frame, image=image_hidden, bg="#D9D9D9", cursor="hand2")
     vision.bind("<Button-1>", hide)
     vision_frame.pack_propagate(False)
     vision.pack(fill=BOTH, expand=True)
-    frame.pack(side= LEFT,fill=BOTH, expand=True,padx=10)
-    vision_frame.pack(side = RIGHT,padx=4)
+    frame.pack(side=LEFT, fill=BOTH, expand=True, padx=10)
+    vision_frame.pack(side=RIGHT, padx=4)
 
-    return parent_frame,entry
+    return parent_frame, entry
 
 
 image_hide_path = "photos/hidden.png"
