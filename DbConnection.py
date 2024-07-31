@@ -7,5 +7,6 @@ def connect_db():
     db_pass = os.environ['db_pass']
     mydb = db.connect(host='localhost',
                       username=db_user,
-                      password=db_pass)
+                      password=db_pass,
+                      database='autoshop')
     return mydb
