@@ -68,10 +68,10 @@ class Signup:
             errors.append("Invalid phone number")
         if not age.isdigit() or int(age) < 1:
             errors.append("Invalid age")
-            values = (user_id, username, hashed_password, fullname, phone_num, age)
-        if self.password_entry != self.confirm_password_entry.get():
+        if self.password_entry.get() != self.confirm_password_entry.get():
             errors.append("Passwords do not match")
 
+        values = (user_id, username, hashed_password, fullname, phone_num, age)
         try:
             cursor.execute(
                 "INSERT INTO users (ID, username, passw, full_name, phone_number, age) VALUES (%s,%s,%s,%s,%s,%s)",

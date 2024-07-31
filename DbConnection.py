@@ -3,10 +3,12 @@ import os
 
 
 def connect_db():
-    db_user = os.environ['db_user']
-    db_pass = os.environ['db_pass']
+    db_user = os.environ['DB_USER']
+    db_pass = os.environ['DB_PASS']
     mydb = db.connect(host='localhost',
                       username=db_user,
                       password=db_pass,
                       database='autoshop')
     return mydb
+
+
