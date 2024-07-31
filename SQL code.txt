@@ -40,3 +40,4 @@ FOREIGN KEY (car_id) REFERENCES cars (car_id)
 
 
 );
+ALTER TABLE users ADD CONSTRAINT UNIQUE (username);

@@ -21,7 +21,7 @@ def create_entry(window, width, height, font=("Helvetica", 12)):
     entry = Entry(frame, bg="#D9D9D9", font=font, borderwidth=0)
     frame.pack_propagate(False)
     entry.pack(fill=BOTH, expand=True, padx=10, pady=10)
-    return frame
+    return frame,entry
 
 
 def create_label(window, width, height, text, font=("Helvetica", 12)):
@@ -64,7 +64,7 @@ def create_password(window, width, height, font=("Helvetica", 12)):
     frame.pack(side= LEFT,fill=BOTH, expand=True,padx=10)
     vision_frame.pack(side = RIGHT,padx=4)
 
-    return parent_frame
+    return parent_frame,entry
 
 
 image_hide_path = "photos/hidden.png"
