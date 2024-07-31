@@ -5,6 +5,8 @@ import DbConnection as db
 import Util as ut
 import bcrypt
 import uuid
+
+
 class Signup:
     mainWindow = Tk()
     signup_lbl = ut.create_label(mainWindow, width=138, height=65, text="Sign Up", font=("Helvetica", 26, "bold"))
@@ -76,7 +78,7 @@ class Signup:
             cursor.execute(
                 "INSERT INTO users (ID, username, passw, full_name, phone_number, age) VALUES (%s,%s,%s,%s,%s,%s)",
                 values)
-
+d
         except (mysql.connector.IntegrityError, mysql.connector.DatabaseError) as err:
             errors.append("Username is already taken")
         if len(errors) == 0:
