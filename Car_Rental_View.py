@@ -6,6 +6,7 @@ import mysql.connector
 import DbConnection as db
 import Util as ut
 import Cars as cr
+import App
 
 
 class Car_Rental_View():
@@ -77,7 +78,7 @@ class Car_Rental_View():
         self.root.mainloop()
 
     def f(self):
-        print("saber")
+        print("Saber")
 
 
 Car_Rental_View()

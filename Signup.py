@@ -1,39 +1,36 @@
 from tkinter import *
 from tkinter import ttk, messagebox
+
 import mysql.connector
+
 import DbConnection as db
 import Util as ut
 import bcrypt
 import uuid
 
 
-class Signup:
-    mainWindow = Tk()
-    signup_lbl = ut.create_label(mainWindow, width=138, height=65, text="Sign Up", font=("Helvetica", 26, "bold"))
-    username_lbl = ut.create_label(mainWindow, 78, 19, "Username")
-    username_frame, username_entry = ut.create_entry(mainWindow, 243, 33)
-    fullname_lbl = ut.create_label(mainWindow, 75, 19, "Full name")
-    fullname_frame, fullname_entry = ut.create_entry(mainWindow, 243, 33)
-    age_lbl = ut.create_label(mainWindow, 30, 19, "Age")
-    age_frame, age_entry = ut.create_entry(mainWindow, 243, 33)
-    phone_num_lbl = ut.create_label(mainWindow, 113, 19, "Phone Number")
-    phone_num_frame, phone_num_entry = ut.create_entry(mainWindow, 243, 33)
-    password_lbl = ut.create_label(mainWindow, 74, 19, "Password")
-    password_frame, password_entry = ut.create_password(mainWindow, 243, 33)
-    confirm_password_lbl = ut.create_label(mainWindow, 139, 19, "Confirm Password")
-    confirm_password_frame, confirm_password_entry = ut.create_password(mainWindow, 243, 33)
-    back_frame, back_btn = ut.create_button(mainWindow, 106, 40, "grey", text="Back")
-    signup_frame, signup_btn = ut.create_button(mainWindow, 106, 40, "red", text="Sign Up")
+class Signup(Frame):
 
-    def __init__(self):
-        screen_width = self.mainWindow.winfo_screenwidth()
-        screen_height = self.mainWindow.winfo_screenheight()
-        x = int((screen_width - 800) / 2)
-        y = int((screen_height - 600) / 2)
-        self.mainWindow.title("The Autoshop")
-        self.mainWindow.config(bg="#FFFFFF")
-        self.mainWindow.resizable(False, False)
-        self.mainWindow.geometry(f"800x600+{x}+{y}")
+    def __init__(self, parent, controller):
+        Frame.__init__(self, parent)
+        self.config(width=800, height=600, bg="#FFFFFF")
+        self.mainWindow = Frame(self)
+        self.signup_lbl = ut.create_label(self, width=138, height=65, text="Sign Up",
+                                          font=("Helvetica", 26, "bold"))
+        self.username_lbl = ut.create_label(self, 78, 19, "Username")
+        self.username_frame, self.username_entry = ut.create_entry(self, 243, 33)
+        self.fullname_lbl = ut.create_label(self, 75, 19, "Full name")
+        self.fullname_frame, self.fullname_entry = ut.create_entry(self, 243, 33)
+        self.age_lbl = ut.create_label(self, 30, 19, "Age")
+        self.age_frame, self.age_entry = ut.create_entry(self, 243, 33)
+        self.phone_num_lbl = ut.create_label(self, 113, 19, "Phone Number")
+        self.phone_num_frame, self.phone_num_entry = ut.create_entry(self, 243, 33)
+        self.password_lbl = ut.create_label(self, 74, 19, "Password")
+        self.password_frame, self.password_entry = ut.create_password(self, 243, 33)
+        self.confirm_password_lbl = ut.create_label(self, 139, 19, "Confirm Password")
+        self.confirm_password_frame, self.confirm_password_entry = ut.create_password(self, 243, 33)
+        self.back_frame, self.back_btn = ut.create_button(self, 106, 40, "grey", text="Back")
+        self.signup_frame, self.signup_btn = ut.create_button(self, 106, 40, "red", text="Sign Up")
         self.signup_lbl.place(x=331, y=73)
         self.username_lbl.place(x=35, y=191)
         self.username_frame.place(x=35, y=210)
@@ -50,7 +47,7 @@ class Signup:
         self.signup_frame.place(x=417, y=453)
         self.signup_btn.config(command=self.signup)
         self.back_frame.place(x=277, y=453)
-        self.mainWindow.mainloop()
+        self.back_btn.config(command=lambda: controller.show_frame("Login"))
 
     def signup(self):
         curr_db = db.connect_db()
@@ -78,7 +75,7 @@ class Signup:
             cursor.execute(
                 "INSERT INTO users (ID, username, passw, full_name, phone_number, age) VALUES (%s,%s,%s,%s,%s,%s)",
                 values)
-d
+
         except (mysql.connector.IntegrityError, mysql.connector.DatabaseError) as err:
             errors.append("Username is already taken")
         if len(errors) == 0:
@@ -90,8 +87,4 @@ d
                 msg += error + "\n"
             messagebox.showerror(title="Error", message=msg)
 
-    def back(self):
-        pass
 
-
-signup = Signup()
