@@ -86,5 +86,4 @@ class Signup(Frame):
             for error in errors:
                 msg += error + "\n"
             messagebox.showerror(title="Error", message=msg)
-
-
+        curr_db.close()
