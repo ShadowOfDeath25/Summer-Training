@@ -6,10 +6,10 @@ import mysql.connector
 import DbConnection as db
 import Util as ut
 import Cars as cr
+import bcrypt
 import App
 
-
-class Car_Rental_View():
+class Car_Rental_View(Frame):
     root = Tk()
     rent_fr, rent_btn = ut.create_button(root, 105, 40, "red", text="Rent")
     back_fr, back_btn = ut.create_button(root, 105, 40, "red", text="Back")
@@ -31,7 +31,8 @@ class Car_Rental_View():
     car_name_lbl = ut.create_label(root, 320, 40, "Car Name")
     dtxt_lbl = ut.create_label(root, 1110, 160, cr.Cars.description)
 
-    def __init__(self):
+    def __init__(self,parent, controller):
+        Frame.__init__(self,parent)
         self.root.title("Car Rental View")
         window_width = 1280
         window_height = 720
@@ -48,7 +49,7 @@ class Car_Rental_View():
         self.back_fr.place(x=990, y=650)
         self.back_btn.config(command=self.f)
         self.quit_fr.place(x=1120, y=650)
-        self.quit_btn.config(command=self.f)
+        self.quit_btn.config(command=lambda: self.quit(controller))
         # img
         self.car_fr.pack()
         self.car_img.place(x=20, y=35)
@@ -79,6 +80,5 @@ class Car_Rental_View():
 
     def f(self):
         print("Saber")
-
-
-Car_Rental_View()
+    def quit(self, controller):
+        controller.show_frame("Login")
