@@ -14,7 +14,7 @@ def get_dates():
     start_lbl.place(x=80, y=220)
     end_lbl.place(x=350, y=220)
     # Calculate price
-    date_format = "%d/%m/%Y"  # Updated format
+    date_format = "%d/%m/%Y"
     delta = datetime.strptime(end_date, date_format) - datetime.strptime(start_date, date_format)
     price = delta.days * 50
     # Price label
@@ -26,12 +26,13 @@ def set_data():
     cursor = curr_db.cursor()
     start_date = start_cal.get_date()
     end_date = end_cal.get_date()
+    date_format = "%d/%m/%Y"
     delta = datetime.strptime(end_date, date_format) - datetime.strptime(start_date, date_format)
     price = delta.days * cr.Cars.price
     rental_id = str(uuid.uuid4())
     values=(rental_id, cr.Cars.id, cr.Cars.owner_id,start_date, end_date, price)
     cursor.execute(
-        "INSERT INTO rentals (rental_id, car_id, owner_id, rental_date, return, price) VALUES (%s,%s,%s,%s,%s,%s)",
+        "INSERT INTO rentals (rental_id, car_id, owner_id, rental_date, return_date, price) VALUES (%s,%s,%s,%s,%s,%s)",
         values)
     cursor.execute("update cars set state='unavailable' where car_id=%s", cr.Cars.id)
     curr_db.commit()
