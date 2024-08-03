@@ -14,22 +14,38 @@ class CarGrid(Frame):
     def __init__(self, parent, controller, cars_arr):
         Frame.__init__(self, parent)
         self.pages = []
-        self.curr_page=0
+        self.curr_page = 0
         self.cars_photos = []
         self.cars_labels = []
         self.config(width=1140,
-                    height=423,
+                    height=500,
                     bg="#FFFFFF")
-        self.pack_propagate(False)
         self.grid_propagate(False)
+        self.pack_propagate(False)
+        # Next and previous buttons
+        self.buttons = Frame(self, bg="#FFFFFF")
+        self.buttons.grid(row=2, column=0)
+        self.next_frame, self.next_btn = ut.create_button(self.buttons, 35, 40, "red", ">")
+        self.prev_frame, self.prev_btn = ut.create_button(self.buttons, 35, 40, "red", "<")
+        self.next_frame.pack(side=RIGHT, padx=10)
+        self.prev_frame.pack(side=LEFT, padx=10)
+
+        self.curr_page = 0
+        self.next_btn.config(command=self.next_page)
+        self.prev_btn.config(command=self.prev_page)
+        self.prev_btn.config(state=DISABLED)
         # Determining the number of pages
         if len(cars_arr) == 0:
             self.number_of_pages = 1
         else:
             self.number_of_pages = math.ceil(len(cars_arr) / 8)
+        if self.number_of_pages == 1:
+            self.next_btn.config(state=DISABLED)
+            self.prev_btn.config(state=DISABLED)
         #   Creating the pages
+
         for i in range(0, self.number_of_pages):
-            self.pages.append(Frame(self, bg="#FFFFFF", width=1140, height=500))
+            self.pages.append(Frame(self, bg="#FFFFFF", width=1140, height=423))
             self.pages[i].grid_propagate(False)
             self.pages[i].grid(row=0, column=0)
         # Saving photos for the cars
@@ -42,7 +58,7 @@ class CarGrid(Frame):
         pg_num = 0
         photo_counter = 0
         for car in cars_arr:
-            if counter == 9:
+            if counter == 8:
                 pg_num += 1
                 counter = 0
             car_name = car.manu + " " + car.model + " " + str(car.year)
@@ -58,24 +74,27 @@ class CarGrid(Frame):
 
             photo_counter += 1
             counter += 1
+        self.pages[0].tkraise()
 
         # Placing the labels
         row = 0
         col = 0
         counter = 0
         for label in self.cars_labels:
-            if counter == 9:
+            if counter == 8:
                 row = 0
                 col = 0
             if col == 4:
                 col = 0
                 row += 1
-            label.grid(row=row, column=col, padx=20, pady=30)
+            label.grid(row=row, column=col, padx=20, pady=10)
             label.bind("<Enter>", self.on_enter)
             label.bind("<Leave>", self.on_leave)
 
             col += 1
             counter += 1
+
+        print(len(self.pages))
 
     def on_enter(self, event):
         lbl = event.widget
@@ -85,4 +104,23 @@ class CarGrid(Frame):
         lbl = event.widget
         lbl.config(font=("Helvetica", 12, "normal"), fg="black")
 
+    def next_page(self):
+        if self.curr_page == len(self.pages) - 2:
+            self.next_btn.config(state=DISABLED)
+        self.curr_page += 1
+        self.pages[self.curr_page].tkraise()
+        if self.curr_page > 0:
+            self.prev_btn.config(state=ACTIVE)
 
+        self.next_btn.config(bg="#EC221F")
+        self.prev_btn.config(bg="#EC221F")
+
+    def prev_page(self):
+        if self.curr_page == 1:
+            self.prev_btn.config(state=DISABLED)
+        if self.curr_page <= len(self.pages) - 1:
+            self.next_btn.config(state=ACTIVE)
+        self.next_btn.config(bg="#EC221F")
+        self.prev_btn.config(bg="#EC221F")
+        self.curr_page -= 1
+        self.pages[self.curr_page].tkraise()

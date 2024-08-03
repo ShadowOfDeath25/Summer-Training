@@ -16,6 +16,8 @@ class MainPage(Frame):
 
         super().__init__(parent)
         self.config(bg="#FFFFFF", width=1280, height=720)
+        self.pack_propagate(False)
+        self.grid_propagate(False)
 
         # Search Bar
         self.search_parent = Frame(self, width=617, height=40, bg="#D9D9D9")
@@ -41,16 +43,49 @@ class MainPage(Frame):
         self.for_sale_lbl.bind("<Button-1>", self.for_sale)
 
         # frames
-        self.parent_frame = Frame(self, bg="#FFFFFF", width=1140, height=423)
+        self.parent_frame = Frame(self, bg="#FFFFFF", width=1140, height=473)
         self.parent_frame.grid_propagate(False)
         db = dbc.connect_db()
         self.cars_for_rent = []
         self.cars_for_sale = []
         rent_cursor = db.cursor()
-        rent_cursor.execute("SELECT * FROM cars WHERE type = 'rent' ")
+        rent_cursor.execute("SELECT"
+                            " car_id,"
+                            "owner_id,"
+                            "model,"
+                            "manu,"
+                            "engine_capacity,"
+                            "horsepower,"
+                            "top_speed,"
+                            "price,"
+                            "photo,"
+                            "car_description,"
+                            "type,"
+                            "state,"
+                            "phone_number"
+                            " FROM cars "
+                            "JOIN users ON cars.owner_ID =users.ID "
+                            " WHERE type = 'rent' AND state = 'available' "
+                            )
         rent_results = rent_cursor.fetchall()
         sale_cursor = db.cursor()
-        sale_cursor.execute("SELECT * FROM cars WHERE type = 'sale' ")
+        sale_cursor.execute("SELECT"
+                            " car_id,"
+                            "owner_id,"
+                            "model,"
+                            "manu,"
+                            "engine_capacity,"
+                            "horsepower,"
+                            "top_speed,"
+                            "price,"
+                            "photo,"
+                            "car_description,"
+                            "type,"
+                            "state,"
+                            "phone_number"
+                            " FROM cars "
+                            "JOIN users ON cars.owner_ID =users.ID "
+                            " WHERE type = 'sale' AND state = 'available' ")
         sale_results = sale_cursor.fetchall()
         db.close()
         for result in rent_results:
@@ -67,7 +102,8 @@ class MainPage(Frame):
                           photo_path=result[9],
                           description=result[10],
                           op_type=result[11],
-                          state=result[12]
+                          state=result[12],
+                          owner_phone=result[13]
                           ))
         for result in sale_results:
             self.cars_for_sale.append(
@@ -83,8 +119,20 @@ class MainPage(Frame):
                           photo_path=result[9],
                           description=result[10],
                           op_type=result[11],
-                          state=result[12]
+                          state=result[12],
+                          owner_phone=result[17]
                           ))
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
+                                            state="available",
+                                            ))
+
+        self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
+                                            engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
+                                            photo_path="photos/01.jpg", description="Muscle car", op_type="Sale",
+                                            state="available",
+                                            ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
                                             photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
@@ -139,11 +187,6 @@ class MainPage(Frame):
         self.for_sale_frame.tkraise()
         self.curr_view = "for_sale"
         self.parent_frame.place(x=70, y=160)
-        self.next_btn_frame, self.next_btn = ut.create_button(self, 35, 40, "red", ">")
-        self.prev_btn_frame, self.prev_btn = ut.create_button(self, 35, 40, "red", "<")
-        self.prev_btn.config(state=DISABLED)
-        if self.for_sale_frame.curr_page == len(self.for_sale_frame.pages) - 1:
-            self.next_btn.config(state=DISABLED)
 
     def for_sale(self, event):
         self.for_sale_lbl.config(image=self.for_sale_normal)
@@ -159,15 +202,3 @@ class MainPage(Frame):
 
     def search(self, event):
         pass
-
-    def next_page(self):
-        if self.curr_view == "for_sale":
-            self.for_sale_frame.curr_page += 1
-            self.for_sale_frame.pages[self.for_sale_frame.curr_page].tkraise()
-            if self.for_sale_frame.curr_page == len(self.for_sale_frame.pages) - 1:
-                self.next_btn.config(state=DISABLED)
-        elif self.curr_view == "for_rent":
-            self.for_rent_frame.curr_page += 1
-            self.for_rent_frame.pages[self.for_sale_frame.curr_page].tkraise()
-            if self.for_sale_frame.curr_page == len(self.for_sale_frame.pages) - 1:
-                self.next_btn.config(state=DISABLED)

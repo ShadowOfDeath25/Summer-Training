@@ -40,7 +40,7 @@ class App(Tk):
         elif frame_name == "Login":
 
             self.login_frame.tkraise()
-        elif frame_name == "car_rent_view":
+        elif frame_name == "car_sale_view":
             pass
 
         elif frame_name == "main_page":
