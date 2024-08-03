@@ -12,20 +12,19 @@ class Cars:
     description = ""
     op_type = ""
     state = ""
-    phone = ""
 
-    def __init__(self, manu, model, year, id, owner_id, engine_capacity, horsepower, top_speed, price, photo_path,
+    def __init__(self, manu, model, year, ID, owner_id, engine_capacity, horsepower, top_speed, price, photo_path,
                  description, op_type, state):
         self.manu = manu
         self.model = model
         self.year = year
-        self.id = id
+        self.id = ID
         self.owner_id = owner_id
         self.engine_capacity = engine_capacity
         self.horsepower = horsepower
         self.top_speed = top_speed
         self.price = price
-        self.photo_path =photo_path
+        self.photo_path = photo_path
         self.description = description
         self.op_type = op_type
         self.state = state
