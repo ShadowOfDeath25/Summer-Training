@@ -9,9 +9,9 @@ import Cars as cr
 import bcrypt
 import App
 
-class Car_Rental_View(Frame):
+class Car_Sale_View(Frame):
     root = Tk()
-    rent_fr, rent_btn = ut.create_button(root, 105, 40, "red", text="Rent")
+    sale_fr, sale_btn = ut.create_button(root, 105, 40, "red", text="Sale")
     back_fr, back_btn = ut.create_button(root, 105, 40, "red", text="Back")
     quit_fr, quit_btn = ut.create_button(root, 105, 40, "grey", text="Quit")
     description_lbl = ut.create_label(root, 149, 25, "Description :", ("Helvetica", 12, 'bold'))
@@ -25,7 +25,7 @@ class Car_Rental_View(Frame):
     engine_lbl = ut.create_label(root, 130, 50, str(cr.Cars.engine_capacity) + ' CC')
     speed_lbl = ut.create_label(root, 130, 50, str(cr.Cars.top_speed) + ' Km/h')
     power_lbl = ut.create_label(root, 130, 50, str(cr.Cars.horsepower) + ' HP')
-    price_lbl = ut.create_label(root, 130, 50, str(cr.Cars.price) + ' L.E/Day')
+    price_lbl = ut.create_label(root, 130, 50, str(cr.Cars.price) + ' L.E')
     year_lbl = ut.create_label(root, 130, 50, str(cr.Cars.year))
     phone_lbl = ut.create_label(root, 130, 50, "01205764096")
     car_name_lbl = ut.create_label(root, 320, 40, "Car Name")
@@ -33,7 +33,7 @@ class Car_Rental_View(Frame):
 
     def __init__(self,parent, controller):
         Frame.__init__(self,parent)
-        self.root.title("Car Rental View")
+        self.root.title("Car Sale View")
         window_width = 1280
         window_height = 720
         screen_width = self.root.winfo_screenwidth()
@@ -44,8 +44,8 @@ class Car_Rental_View(Frame):
         self.root.config(bg="#FFFFFF")
         self.root.resizable(False, False)
         # btn
-        self.rent_fr.place(x=860, y=650)
-        self.rent_btn.config(command=lambda: self.rent(controller))
+        self.sale_fr.place(x=860, y=650)
+        self.sale_btn.config(command=lambda: self.sale(controller))
         self.back_fr.place(x=990, y=650)
         self.back_btn.config(command=lambda: self.back(controller))
         self.quit_fr.place(x=1120, y=650)
@@ -82,5 +82,13 @@ class Car_Rental_View(Frame):
         controller.show_frame("Login")
     def back(self, controller):
         controller.show_frame("MainPage")
-    def rent(self, controller):
-        controller.show_frame("Date picker")
+    def sale(self, controller):
+        curr_db = db.connect_db()
+        cursor = curr_db.cursor()
+        cursor.execute("update cars set state='unavailable' where car_id=%s", cr.Cars.id)
+        curr_db.commit()
+        controller.show_frame("MainPage")
+
+win = Tk()
+frame = Frame(win)
+Car_Sale_View(frame,win)
