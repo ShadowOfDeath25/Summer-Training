@@ -17,6 +17,7 @@ class CarGrid(Frame):
         self.curr_page = 0
         self.cars_photos = []
         self.cars_labels = []
+
         self.config(width=1140,
                     height=500,
                     bg="#FFFFFF")
@@ -69,7 +70,7 @@ class CarGrid(Frame):
                         bg="#FFFFFF",
                         compound=TOP,
                         cursor="hand2")
-            lbl.bind("<Button-1>", controller.show_frame("car_" + car.op_type.lower() + "_view"))
+            lbl.bind("<Button-1>", lambda event, cr=car, control=controller: self.show_car(event, cr, control))
             self.cars_labels.append(lbl)
 
             photo_counter += 1
@@ -124,3 +125,6 @@ class CarGrid(Frame):
         self.prev_btn.config(bg="#EC221F")
         self.curr_page -= 1
         self.pages[self.curr_page].tkraise()
+
+    def show_car(self, event, cr, control):
+        control.show_frame("car_" + cr.op_type.lower() + "_view", cr)

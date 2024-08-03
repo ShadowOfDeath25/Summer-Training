@@ -9,6 +9,7 @@ import Util as ut
 import User as user
 import Cars as cars
 import CarGrid as cg
+import os as os
 
 
 class MainPage(Frame):
@@ -99,7 +100,7 @@ class MainPage(Frame):
                           horsepower=result[6],
                           top_speed=result[7],
                           price=result[8],
-                          photo_path=result[9],
+                          photo_path=os.path.normcase(result[9]),
                           description=result[10],
                           op_type=result[11],
                           state=result[12],
@@ -116,7 +117,7 @@ class MainPage(Frame):
                           horsepower=result[6],
                           top_speed=result[7],
                           price=result[8],
-                          photo_path=result[9],
+                          photo_path=os.path.normcase(result[9]),
                           description=result[10],
                           op_type=result[11],
                           state=result[12],
@@ -124,58 +125,68 @@ class MainPage(Frame):
                           ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
 
         self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
                                             engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path="photos/01.jpg", description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
 
         self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
                                             engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path="photos/01.jpg", description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
 
         self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
                                             engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path="photos/01.jpg", description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
 
         self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
                                             engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path="photos/01.jpg", description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path="photos/01.jpg", description="Reliable sedan", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
 
         self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
                                             engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path="photos/01.jpg", description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
                                             state="available",
+                                            owner_phone="01558021688"
                                             ))
 
         self.for_sale_frame = cg.CarGrid(self.parent_frame, controller, self.cars_for_sale)
