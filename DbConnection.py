@@ -13,9 +13,3 @@ def connect_db():
     return mydb
 
 
-#curr_db = connect_db()
-#cursor = curr_db.cursor()
-#val = cursor.execute('SELECT * FROM users')
-#cursor.fetchall()
-#for row in val:
- #   print(row)
