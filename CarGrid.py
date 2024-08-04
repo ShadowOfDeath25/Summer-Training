@@ -24,14 +24,14 @@ class CarGrid(Frame):
 
         self.pack_propagate(False)
         # Next and previous buttons
-        self.buttons = Frame(self, bg="#FFFFFF",width =1140,height=41)
+        self.buttons = Frame(self, bg="#FFFFFF", width=1140, height=41)
         self.buttons.grid_propagate(False)
-        #self.buttons.pack_propagate(False)
-        self.buttons.grid(row=2, column=0,sticky=NSEW,columnspan=4)
+        # self.buttons.pack_propagate(False)
+        self.buttons.grid(row=2, column=0, sticky=NSEW, columnspan=4)
         self.next_frame, self.next_btn = ut.create_button(self.buttons, 35, 40, "red", ">")
         self.prev_frame, self.prev_btn = ut.create_button(self.buttons, 35, 40, "red", "<")
-        self.next_frame.place(x=545+50,y=0)
-        self.prev_frame.place(x=545,y=0)
+        self.next_frame.place(x=545 + 50, y=0)
+        self.prev_frame.place(x=545, y=0)
 
         self.curr_page = 0
         self.next_btn.config(command=self.next_page)
@@ -67,12 +67,12 @@ class CarGrid(Frame):
             car_name = car.manu + " " + car.model + " " + str(car.year)
             lbl = Label(self.pages[pg_num],
                         text=car_name,
-                        font=("Helvetica", 12,"bold"),
+                        font=("Helvetica", 12, "bold"),
                         image=self.cars_photos[photo_counter],
                         bg="#FFFFFF",
                         compound=TOP,
                         cursor="hand2")
-            lbl.bind("<Button-1>", lambda event, cr=car,control=controller: self.show_car(event,cr,control))
+            lbl.bind("<Button-1>", lambda event, cr=car, control=controller: self.show_car(event, cr, control))
             self.cars_labels.append(lbl)
 
             photo_counter += 1
@@ -97,11 +97,9 @@ class CarGrid(Frame):
             col += 1
             counter += 1
 
-
-
     def on_enter(self, event):
         lbl = event.widget
-        lbl.config(font=("Helvetica", 12, "underline","bold"), fg="#EC221F")
+        lbl.config(font=("Helvetica", 12, "underline", "bold"), fg="#EC221F")
 
     def on_leave(self, event):
         lbl = event.widget
@@ -129,4 +127,4 @@ class CarGrid(Frame):
         self.pages[self.curr_page].tkraise()
 
     def show_car(self, event, cr, control):
-        control.show_frame("car_"+cr.op_type.lower()+"_view" , cr)
+        control.show_frame("car_" + cr.op_type.lower() + "_view", cr)
