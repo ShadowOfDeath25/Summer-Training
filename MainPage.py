@@ -5,6 +5,7 @@ from PIL import ImageTk
 from PIL import Image
 
 import DbConnection as dbc
+import User
 import Util as ut
 import User as user
 import Cars as cars
@@ -19,18 +20,6 @@ class MainPage(Frame):
         self.config(bg="#FFFFFF", width=1280, height=720)
         self.pack_propagate(False)
         self.grid_propagate(False)
-
-        # Search Bar
-        self.search_parent = Frame(self, width=617, height=40, bg="#D9D9D9")
-        self.search_parent.grid_propagate(False)
-        self.search_frame, self.search_box = ut.create_entry(self.search_parent, 617 - 32, 40)
-        self.search_frame.pack(side=RIGHT)
-        self.search_icon = PhotoImage(file="photos/glass.png")
-        self.search_lbl = Label(self.search_parent, image=self.search_icon, bg="#D9D9D9", cursor="hand2")
-        self.search_lbl.pack(side=LEFT, padx=4)
-        self.search_parent.place(x=331, y=27)
-        self.search_lbl.bind("<Button-1>", self.search)
-
         # Tabs
         self.for_sale_normal = PhotoImage(file="photos/for_sale_nrml.png")
         self.for_sale_clicked = PhotoImage(file="photos/for_sale_clicked.png")
@@ -38,12 +27,12 @@ class MainPage(Frame):
         self.for_rent_clicked = PhotoImage(file="photos/for_rent_clicked.png")
         self.for_rent_lbl = Label(self, image=self.for_rent_clicked, bg="#FFFFFF", cursor="hand2")
         self.for_sale_lbl = Label(self, image=self.for_sale_normal, bg="#FFFFFF", cursor="hand2")
-        self.for_rent_lbl.place(x=647, y=108)
-        self.for_sale_lbl.place(x=530, y=108)
+        self.for_rent_lbl.place(x=647, y=66)
+        self.for_sale_lbl.place(x=530, y=66)
         self.for_rent_lbl.bind("<Button-1>", self.for_rent)
         self.for_sale_lbl.bind("<Button-1>", self.for_sale)
 
-        # frames
+        # Frames
         self.parent_frame = Frame(self, bg="#FFFFFF", width=1140, height=473)
         self.parent_frame.grid_propagate(False)
         db = dbc.connect_db()
@@ -125,66 +114,89 @@ class MainPage(Frame):
                           ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
-                                            state="available",
-                                            owner_phone="01558021688"
-                                            ))
-
-        self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
-                                            engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
                                             state="available",
                                             owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
-                                            state="available",
-                                            owner_phone="01558021688"
-                                            ))
-
-        self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
-                                            engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
                                             state="available",
                                             owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
-                                            state="available",
-                                            owner_phone="01558021688"
-                                            ))
-
-        self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
-                                            engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
                                             state="available",
                                             owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
-                                            state="available",
-                                            owner_phone="01558021688"
-                                            ))
-
-        self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
-                                            engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
                                             state="available",
                                             owner_phone="01558021688"
                                             ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Reliable sedan", op_type="Sale",
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
                                             state="available",
                                             owner_phone="01558021688"
                                             ))
-
-        self.cars_for_sale.append(cars.Cars(manu="Ford", model="Mustang", year=2018, ID=2, owner_id=102,
-                                            engine_capacity=5000, horsepower=450, top_speed=160, price=35000,
-                                            photo_path=os.path.normcase("E:\\Summer Training Project\\Summer-Training\\photos\\01.jpg"), description="Muscle car", op_type="Sale",
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
+                                            state="available",
+                                            owner_phone="01558021688"
+                                            ))
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
+                                            state="available",
+                                            owner_phone="01558021688"
+                                            ))
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
+                                            state="available",
+                                            owner_phone="01558021688"
+                                            ))
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
+                                            state="available",
+                                            owner_phone="01558021688"
+                                            ))
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
+                                            state="available",
+                                            owner_phone="01558021688"
+                                            ))
+        self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
+                                            engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
+                                            photo_path=os.path.normcase(
+                                                "photos/01.jpg"),
+                                            description="Reliable sedan", op_type="Sale",
                                             state="available",
                                             owner_phone="01558021688"
                                             ))
@@ -197,7 +209,31 @@ class MainPage(Frame):
         self.for_rent_frame.grid(row=0, column=0)
         self.for_sale_frame.tkraise()
         self.curr_view = "for_sale"
-        self.parent_frame.place(x=70, y=160)
+        self.parent_frame.place(x=60, y=123)
+
+        # Bottom buttons
+        self.listed_frame, self.listed_btn = ut.create_button(self, 135, 40, "red", "Listed Cars")
+        self.rented_frame, self.rented_btn = ut.create_button(self, 135, 40, "red", "Rented Cars")
+        self.back_btn_frame, self.back_btn = ut.create_button(self, 103, 40, "red", "Back")
+        self.quit_btn_frame, self.quit_btn = ut.create_button(self, 103, 40, "grey", "Quit")
+        self.listed_frame.place(x=743, y=667)
+        self.rented_frame.place(x=896, y=667)
+        self.back_btn_frame.place(x=1049, y=667)
+        self.quit_btn_frame.place(x=1170, y=667)
+        self.quit_btn.config(command=lambda: controller.destroy())
+        self.back_btn.config(command=lambda: controller.show_frame("Login"))
+        self.listed_btn.config(command=lambda: controller.show_frame("listed_cars"))
+        self.rented_btn.config(command=lambda: controller.show_frame("rented_cars"))
+
+        # Username label
+        self.username_lbl_frame = Frame(self, width=234, height=64, bg="#FFFFFF")
+        self.username_lbl_frame.pack_propagate(False)
+        self.username_photo = PhotoImage(file="Photos/profile-user.png")
+        self.username_label = Label(self.username_lbl_frame, text=user.current_user.full_name,
+                                    font=("Helvetica ", 10, "bold"),
+                                    bg="#FFFFFF", image=self.username_photo,compound=RIGHT,padx=10)
+        self.username_label.pack(fill=BOTH, expand=True)
+        self.username_lbl_frame.place(x=1034, y=15)
 
     def for_sale(self, event):
         self.for_sale_lbl.config(image=self.for_sale_normal)
@@ -211,5 +247,3 @@ class MainPage(Frame):
         self.for_rent_frame.tkraise()
         self.curr_view = "for_rent"
 
-    def search(self, event):
-        pass

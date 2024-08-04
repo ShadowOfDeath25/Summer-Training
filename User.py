@@ -14,5 +14,5 @@ class User:
         self.phone_num = phone_num
         self.id = id
 
-
 current_user = User("", "", "", "", "", "")
+

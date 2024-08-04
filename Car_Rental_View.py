@@ -14,7 +14,6 @@ class Car_Rental_View(Frame):
 
     def __init__(self, parent, controller, car=None):
         super().__init__(parent)
-
         self.config(width=1280, height=720, bg="#FFFFFF")
         self.pack_propagate(False)
         self.grid_propagate(False)
