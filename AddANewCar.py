@@ -1,12 +1,17 @@
 from tkinter import *
-import mysql.connector as db
+import mysql.connector
 from tkinter import messagebox
 from tkinter.ttk import *
 import os
 import Util as ut
 import User as us
 import Cars as cr
-import DbConnection as dbc
+import DbConnection as db
+
+
+
+
+
 class AddNewCar:
     root = Tk()
     root.geometry('1280x720')
@@ -22,6 +27,9 @@ class AddNewCar:
 
 
 
+
+
+
     lbl1 =ut.create_label(root,width=293,height=62,text='Add A New Car',font=('Helvetica',30))
     lbl1 .pack()
 
@@ -29,7 +37,7 @@ class AddNewCar:
     lbl2.pack()
     lbl2.place(x =60, y =95)
 
-    fram1,text1=ut.create_entry(root,width=365,height=29)
+    fram1,text1=ut.create_entry(root,width=365,height=35)
     fram1,text1.pack()
     fram1.place(x =60, y =120)
 
@@ -37,7 +45,7 @@ class AddNewCar:
     lbl3.pack()
     lbl3.place(x =830, y =95)
 
-    fram2,text2=ut.create_entry(root,width=365,height=29)
+    fram2,text2=ut.create_entry(root,width=365,height=35)
     fram2,text2.pack()
     fram2.place(x =830, y =120)
 
@@ -45,7 +53,7 @@ class AddNewCar:
     lbl4.pack()
     lbl4.place(x =60, y =215)
 
-    fram3,text3 = ut.create_entry(root,width=365,height=29)
+    fram3,text3 = ut.create_entry(root,width=365,height=35)
     fram3,text3.pack()
     fram3.place(x =60, y =240)
 
@@ -53,7 +61,7 @@ class AddNewCar:
     lbl5.pack()
     lbl5.place(x =830, y =215)
 
-    fram4,text4 = ut.create_entry(root,width=356,height=29)
+    fram4,text4 = ut.create_entry(root,width=356,height=35)
     fram4,text4.pack()
     fram4.place(x =830, y =240)
 
@@ -61,7 +69,7 @@ class AddNewCar:
     lbl6.pack()
     lbl6.place(x =60, y =335)
 
-    fram5,text5 = ut.create_entry(root,width=365,height=29)
+    fram5,text5 = ut.create_entry(root,width=365,height=35)
     fram5,text5.pack()
     fram5.place(x =60, y =360)
 
@@ -69,7 +77,7 @@ class AddNewCar:
     lbl7.pack()
     lbl7.place(x =830, y =335)
 
-    fram6,text6 = ut.create_entry(root,width=356,height=29)
+    fram6,text6 = ut.create_entry(root,width=356,height=35)
     fram6,text6.pack()
     fram6.place(x =830, y =360)
 
