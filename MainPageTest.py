@@ -9,7 +9,7 @@ import User
 import Util as ut
 import User as user
 import Cars as cars
-import CarGrid as cg
+import CarGrid1 as cg
 import os as os
 
 
@@ -233,7 +233,7 @@ class MainPage(Frame):
         self.username_photo = PhotoImage(file="Photos/profile-user.png")
         self.username_label = Label(self.username_lbl_frame, text=user.current_user.full_name,
                                     font=("Helvetica ", 10, "bold"),
-                                    bg="#FFFFFF", image=self.username_photo,compound=RIGHT,padx=10)
+                                    bg="#FFFFFF", image=self.username_photo, compound=RIGHT, padx=10)
         self.username_label.pack(fill=BOTH, expand=True)
         self.username_lbl_frame.place(x=1034, y=15)
 
@@ -250,3 +250,12 @@ class MainPage(Frame):
         self.curr_view = "for_rent"
 
 
+root = Tk()
+root.geometry("1280x720")
+root.resizable(False, False)
+container = Frame(root, width=1280, height=720)
+container.pack(fill=BOTH, expand=True)
+container.pack_propagate(False)
+mp = MainPage(container, root)
+mp.pack(fill=BOTH,expand=True)
+root.mainloop()

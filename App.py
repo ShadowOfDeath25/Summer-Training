@@ -59,7 +59,7 @@ class App(Tk):
             self.main_page.grid(row=0, column=0)
             self.main_page.tkraise()
         elif frame_name == "date_picker":
-            self.date_picker = dp.Date_Picker(self.container , self  ,  car)
+            self.date_picker = dp.Date_Picker(self.container, self, car)
             self.date_picker.grid(row=0, column=0)
             self.date_picker.tkraise()
         elif frame_name == "listed_cars":
