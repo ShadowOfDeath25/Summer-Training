@@ -33,7 +33,7 @@ class App(Tk):
         # self.main_page.grid(row=0, column=0)
         self.signup_frame.grid(row=0, column=0)
         self.car_rent_view.grid(row=0, column=0)
-        self.show_frame("add_car")
+        self.show_frame("Login")
 
     def resize_window(self, width, height):
         screen_width = self.winfo_screenwidth()
