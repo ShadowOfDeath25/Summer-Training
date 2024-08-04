@@ -2,3 +2,15 @@
 /.idea
 /.idea
 /.idea
+*.pyc
+__pycache__/Login.cpython-312.pyc
+__pycache__/Util.cpython-312.pyc
+__pycache__/User.cpython-312.pyc
+__pycache__/Signup.cpython-312.pyc
+__pycache__/MainPage.cpython-312.pyc
+__pycache__/DbConnection.cpython-312.pyc
+__pycache__/DatePicker.cpython-312.pyc
+__pycache__/Cars.cpython-312.pyc
+__pycache__/CarGrid.cpython-312.pyc
+__pycache__/Car_Sale_View.cpython-312.pyc
+__pycache__/Car_Rental_View.cpython-312.pyc

@@ -44,6 +44,7 @@ class MainPage(Frame):
                             "owner_id,"
                             "model,"
                             "manu,"
+                            "manu_year,"
                             "engine_capacity,"
                             "horsepower,"
                             "top_speed,"
@@ -64,6 +65,7 @@ class MainPage(Frame):
                             "owner_id,"
                             "model,"
                             "manu,"
+                            "manu_year,"
                             "engine_capacity,"
                             "horsepower,"
                             "top_speed,"
@@ -110,7 +112,7 @@ class MainPage(Frame):
                           description=result[10],
                           op_type=result[11],
                           state=result[12],
-                          owner_phone=result[17]
+                          owner_phone=result[13]
                           ))
         self.cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
                                             engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
@@ -246,4 +248,5 @@ class MainPage(Frame):
         self.for_sale_lbl.config(image=self.for_sale_clicked)
         self.for_rent_frame.tkraise()
         self.curr_view = "for_rent"
+
 
