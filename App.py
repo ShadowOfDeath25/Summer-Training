@@ -9,6 +9,7 @@ import Car_Sale_View as crs
 import User as user
 import MainPage as mp
 import Cars as cr
+import DatePicker as dp
 import Util as ut
 
 
@@ -56,6 +57,10 @@ class App(Tk):
             self.main_page = mp.MainPage(self.container, self)
             self.main_page.grid(row=0, column=0)
             self.main_page.tkraise()
+        elif frame_name == "date_picker":
+            self.date_picker = dp.Date_Picker(self.container , self  ,  car)
+            self.date_picker.grid(row=0, column=0)
+            self.date_picker.tkraise()
         elif frame_name == "listed_cars":
             pass
         elif frame_name == "add_car":

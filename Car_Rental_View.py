@@ -39,7 +39,7 @@ class Car_Rental_View(Frame):
         self.dtxt_lbl = ut.create_label(self, 1110, 160, self.car.description)
         # btn
         self.rent_fr.place(x=860, y=650)
-        self.rent_btn.config(command=lambda: controller.show_frame("date_picker"))
+        self.rent_btn.config(command=lambda: controller.show_frame("date_picker",self.car))
         self.back_fr.place(x=990, y=650)
         self.back_btn.config(command=lambda: controller.show_frame("main_page"))
         self.quit_fr.place(x=1120, y=650)
@@ -60,10 +60,11 @@ class Car_Rental_View(Frame):
         self.speed_fr.pack()
         self.speed_img.place(x=719, y=205)
         # lbl
+
         self.description_lbl.place(x=20, y=379)
         self.speed_lbl.place(x=791, y=223)
         self.price_lbl.place(x=890, y=315)
-        self.year_lbl.place(x=1160, y=220)
+        self.year_lbl.place(x=1060, y=220)
         self.phone_lbl.place(x=100, y=635)
         self.engine_lbl.place(x=792, y=127)
         self.power_lbl.place(x=1061, y=127)
