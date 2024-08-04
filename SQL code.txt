@@ -21,8 +21,8 @@ CREATE TABLE CARS (
     price INT NOT NULL,
     photo TEXT NOT NULL,
     car_description TEXT NOT NULL,
-    type VARCHAR(4) NOT NULL,
-    state VARCHAR(10) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    state VARCHAR(20) NOT NULL,
     FOREIGN KEY (owner_ID) REFERENCES users (ID) 
 );
 
@@ -40,4 +40,10 @@ FOREIGN KEY (car_id) REFERENCES cars (car_id)
 
 
 );
+
+
+
+# Run these queries after table creations 
 ALTER TABLE users ADD CONSTRAINT UNIQUE (username);
+ALTER TABLE cars MODIFY type varchar(20)
+ALTER TABLE cars MODIFY state varchar(20)

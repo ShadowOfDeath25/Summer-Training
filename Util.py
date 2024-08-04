@@ -37,6 +37,14 @@ def create_entry(window, width, height, font=("Helvetica", 12)):
     return frame, entry
 
 
+def create_text_area(window, width, height, font=("Helvetica", 12)):
+    frame = Frame(window, width=width, height=height, bg="#D9D9D9")
+    entry = Text(frame, bg="#D9D9D9", font=font, borderwidth=0)
+    frame.pack_propagate(False)
+    entry.pack(fill=BOTH, expand=True, padx=10, pady=10)
+    return frame, entry
+
+
 def create_label(window, width, height, text, font=("Helvetica", 12)):
     frame = Frame(window, width=width, height=height, bg="#FFFFFF")
     frame.pack_propagate(False)
