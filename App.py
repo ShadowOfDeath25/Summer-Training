@@ -12,6 +12,7 @@ import bcrypt
 import Cars as cr
 import DatePicker as dp
 import Util as ut
+from AddANewCar import AddNewCar as anc
 
 
 class App(Tk):
@@ -32,7 +33,7 @@ class App(Tk):
         # self.main_page.grid(row=0, column=0)
         self.signup_frame.grid(row=0, column=0)
         self.car_rent_view.grid(row=0, column=0)
-        self.show_frame("Login")
+        self.show_frame("add_car")
 
     def resize_window(self, width, height):
         screen_width = self.winfo_screenwidth()
@@ -65,7 +66,9 @@ class App(Tk):
         elif frame_name == "listed_cars":
             pass
         elif frame_name == "add_car":
-            pass
+            self.add_car = anc(self.container, self)
+            self.add_car.grid(row=0, column=0)
+            self.add_car.tkraise()
         elif frame_name == "rented_cars":
             pass
 
