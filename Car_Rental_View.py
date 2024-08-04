@@ -36,7 +36,6 @@ class Car_Rental_View(Frame):
         self.year_lbl = ut.create_label(self, 130, 50, str(self.car.year))
         self.phone_lbl = ut.create_label(self, 130, 50, self.car.owner_phone)
         self.car_name_lbl = ut.create_label(self, 320, 40, self.car.manu + " " + car.model + " " + str(car.year))
-        self.dtxt_lbl = ut.create_label(self, 1110, 160, self.car.description)
         # btn
         self.rent_fr.place(x=860, y=650)
         self.rent_btn.config(command=lambda: controller.show_frame("date_picker",self.car))
@@ -60,7 +59,6 @@ class Car_Rental_View(Frame):
         self.speed_fr.pack()
         self.speed_img.place(x=719, y=205)
         # lbl
-
         self.description_lbl.place(x=20, y=379)
         self.speed_lbl.place(x=791, y=223)
         self.price_lbl.place(x=890, y=315)
@@ -69,4 +67,11 @@ class Car_Rental_View(Frame):
         self.engine_lbl.place(x=792, y=127)
         self.power_lbl.place(x=1061, y=127)
         self.car_name_lbl.place(x=760, y=35)
-        self.dtxt_lbl.place(x=20, y=420)
+        self.frame = Frame(self, width=1110, height=160, bg="#FFFFFF")
+        self.entry = Text(self.frame, bg="#FFFFFF", font=("Helvetica", 10), borderwidth=0,cursor="arrow")
+        self.entry.insert(END, self.car.description)
+        self.entry.config(state=DISABLED)
+        self.frame.pack_propagate(False)
+        self.entry.pack(fill=BOTH, expand=True, padx=10, pady=10)
+        self.frame.place(x=20,y=420)
+

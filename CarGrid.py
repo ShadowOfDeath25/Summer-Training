@@ -129,4 +129,4 @@ class CarGrid(Frame):
         self.pages[self.curr_page].tkraise()
 
     def show_car(self, event, cr, control):
-        control.show_frame("car_"+"rent"+"_view" , cr)
+        control.show_frame("car_"+cr.op_type.lower()+"_view" , cr)
