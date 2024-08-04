@@ -1,55 +1,47 @@
 from tkinter import *
 from tkinter import messagebox
-from tkinter.ttk import *
+
 from PIL import Image, ImageTk
 import mysql.connector
 import DbConnection as db
 import Util as ut
 import Cars as cr
 import bcrypt
-import App
+import os
+
 
 class Car_Sale_View(Frame):
-    root = Tk()
-    sale_fr, sale_btn = ut.create_button(root, 105, 40, "red", text="Sale")
-    back_fr, back_btn = ut.create_button(root, 105, 40, "red", text="Back")
-    quit_fr, quit_btn = ut.create_button(root, 105, 40, "grey", text="Quit")
-    description_lbl = ut.create_label(root, 149, 25, "Description :", ("Helvetica", 12, 'bold'))
-    car_fr, car_img = ut.create_image(root, 590, 320, 'photos/01.jpg')
-    engine_fr, engine_img = ut.create_image(root, 64, 64, 'photos/engine.png')
-    horsepower_fr, horsepower_img = ut.create_image(root, 64, 64, 'photos/horsepower.png')
-    speed_fr, speed_img = ut.create_image(root, 64, 64, 'photos/speed.png')
-    calendar_fr, calendar_img = ut.create_image(root, 64, 64, 'photos/calendar.png')
-    dollar_fr, dollar_img = ut.create_image(root, 64, 64, 'photos/dollar.png.')
-    call_fr, call_img = ut.create_image(root, 64, 64, 'photos/call.png')
-    engine_lbl = ut.create_label(root, 130, 50, str(cr.Cars.engine_capacity) + ' CC')
-    speed_lbl = ut.create_label(root, 130, 50, str(cr.Cars.top_speed) + ' Km/h')
-    power_lbl = ut.create_label(root, 130, 50, str(cr.Cars.horsepower) + ' HP')
-    price_lbl = ut.create_label(root, 130, 50, str(cr.Cars.price) + ' L.E')
-    year_lbl = ut.create_label(root, 130, 50, str(cr.Cars.year))
-    phone_lbl = ut.create_label(root, 130, 50, "01205764096")
-    car_name_lbl = ut.create_label(root, 320, 40, "Car Name")
-    dtxt_lbl = ut.create_label(root, 1110, 160, cr.Cars.description)
 
-    def __init__(self,parent, controller):
-        Frame.__init__(self,parent)
-        self.root.title("Car Sale View")
-        window_width = 1280
-        window_height = 720
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-        center_x = int(screen_width / 2 - window_width / 2)
-        center_y = int(screen_height / 2 - window_height / 2)
-        self.root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
-        self.root.config(bg="#FFFFFF")
-        self.root.resizable(False, False)
+    def __init__(self, parent, controller, car=None):
+        super().__init__(parent)
+
+        self.config(width=1280, height=720, bg="#FFFFFF")
+        self.pack_propagate(False)
+        self.grid_propagate(False)
+        self.car = car
+        self.back_fr, self.back_btn = ut.create_button(self, 105, 40, "red", text="Back")
+        self.quit_fr, self.quit_btn = ut.create_button(self, 105, 40, "grey", text="Quit")
+        self.description_lbl = ut.create_label(self, 149, 25, "Description :", ("Helvetica", 12, 'bold'))
+        self.car_fr, self.car_img = ut.create_image(self, 590, 320, os.path.normcase(self.car.photo_path))
+        self.engine_fr, self.engine_img = ut.create_image(self, 64, 64, 'photos/engine.png')
+        self.horsepower_fr, self.horsepower_img = ut.create_image(self, 64, 64, 'photos/horsepower.png')
+        self.speed_fr, self.speed_img = ut.create_image(self, 64, 64, 'photos/speed.png')
+        self.calendar_fr, self.calendar_img = ut.create_image(self, 64, 64, 'photos/calendar.png')
+        self.dollar_fr, self.dollar_img = ut.create_image(self, 64, 64, 'photos/dollar.png.')
+        self.call_fr, self.call_img = ut.create_image(self, 64, 64, 'photos/call.png')
+        self.engine_lbl = ut.create_label(self, 130, 50, str(self.car.engine_capacity) + ' CC')
+        self.speed_lbl = ut.create_label(self, 130, 50, str(self.car.top_speed) + ' Km/h')
+        self.power_lbl = ut.create_label(self, 130, 50, str(self.car.horsepower) + ' HP')
+        self.price_lbl = ut.create_label(self, 130, 50, str(self.car.price) + ' L.E')
+        self.year_lbl = ut.create_label(self, 130, 50, str(self.car.year))
+        self.phone_lbl = ut.create_label(self, 130, 50, self.car.owner_phone)
+        self.car_name_lbl = ut.create_label(self, 320, 40, self.car.manu + " " + car.model + " " + str(car.year))
+        self.dtxt_lbl = ut.create_label(self, 1110, 160, self.car.description)
         # btn
-        self.sale_fr.place(x=860, y=650)
-        self.sale_btn.config(command=lambda: self.sale(controller))
         self.back_fr.place(x=990, y=650)
-        self.back_btn.config(command=lambda: self.back(controller))
+        self.back_btn.config(command=lambda: controller.show_frame("main_page"))
         self.quit_fr.place(x=1120, y=650)
-        self.quit_btn.config(command=lambda: self.quit(controller))
+        self.quit_btn.config(command=lambda: controller.show_frame("Login"))
         # img
         self.car_fr.pack()
         self.car_img.place(x=20, y=35)
@@ -75,20 +67,3 @@ class Car_Sale_View(Frame):
         self.power_lbl.place(x=1061, y=127)
         self.car_name_lbl.place(x=760, y=35)
         self.dtxt_lbl.place(x=20, y=420)
-
-        self.root.mainloop()
-
-    def quit(self, controller):
-        controller.show_frame("Login")
-    def back(self, controller):
-        controller.show_frame("MainPage")
-    def sale(self, controller):
-        curr_db = db.connect_db()
-        cursor = curr_db.cursor()
-        cursor.execute("update cars set state='unavailable' where car_id=%s", cr.Cars.id)
-        curr_db.commit()
-        controller.show_frame("MainPage")
-
-win = Tk()
-frame = Frame(win)
-Car_Sale_View(frame,win)

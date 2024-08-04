@@ -5,6 +5,7 @@ from Signup import *
 from tkinter import *
 from Login import *
 import Car_Rental_View as crv
+import Car_Sale_View as crs
 import User as user
 import MainPage as mp
 import Cars as cr
@@ -36,7 +37,7 @@ class App(Tk):
         screen_height = self.winfo_screenheight()
         self.geometry(f"{width}x{height}+{int((screen_width - width) / 2)}+{int((screen_height - height) / 2)}")
 
-    def show_frame(self, frame_name, car=None, usr=user.current_user):
+    def show_frame(self, frame_name, car=None):
         if frame_name == "Signup":
 
             self.signup_frame.tkraise()
@@ -45,6 +46,10 @@ class App(Tk):
             self.login_frame.tkraise()
         elif frame_name == "car_rent_view":
             self.car_frame = crv.Car_Rental_View(self.container,self,car)
+            self.car_frame.grid(row=0,column=0)
+            self.car_frame.tkraise()
+        elif frame_name == "car_sale_view":
+            self.car_frame = crs.Car_Sale_View(self.container,self,car)
             self.car_frame.grid(row=0,column=0)
             self.car_frame.tkraise()
         elif frame_name == "main_page":
