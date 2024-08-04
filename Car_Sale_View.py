@@ -10,15 +10,15 @@ import bcrypt
 import os
 
 
-class Car_Rental_View(Frame):
+class Car_Sale_View(Frame):
 
     def __init__(self, parent, controller, car=None):
         super().__init__(parent)
+
         self.config(width=1280, height=720, bg="#FFFFFF")
         self.pack_propagate(False)
         self.grid_propagate(False)
         self.car = car
-        self.rent_fr, self.rent_btn = ut.create_button(self, 105, 40, "red", text="Rent")
         self.back_fr, self.back_btn = ut.create_button(self, 105, 40, "red", text="Back")
         self.quit_fr, self.quit_btn = ut.create_button(self, 105, 40, "grey", text="Quit")
         self.description_lbl = ut.create_label(self, 149, 25, "Description :", ("Helvetica", 12, 'bold'))
@@ -32,14 +32,12 @@ class Car_Rental_View(Frame):
         self.engine_lbl = ut.create_label(self, 130, 50, str(self.car.engine_capacity) + ' CC')
         self.speed_lbl = ut.create_label(self, 130, 50, str(self.car.top_speed) + ' Km/h')
         self.power_lbl = ut.create_label(self, 130, 50, str(self.car.horsepower) + ' HP')
-        self.price_lbl = ut.create_label(self, 130, 50, str(self.car.price) + ' L.E/Day')
+        self.price_lbl = ut.create_label(self, 130, 50, str(self.car.price) + ' L.E')
         self.year_lbl = ut.create_label(self, 130, 50, str(self.car.year))
         self.phone_lbl = ut.create_label(self, 130, 50, self.car.owner_phone)
         self.car_name_lbl = ut.create_label(self, 320, 40, self.car.manu + " " + car.model + " " + str(car.year))
         self.dtxt_lbl = ut.create_label(self, 1110, 160, self.car.description)
         # btn
-        self.rent_fr.place(x=860, y=650)
-        self.rent_btn.config(command=lambda: controller.show_frame("date_picker"))
         self.back_fr.place(x=990, y=650)
         self.back_btn.config(command=lambda: controller.show_frame("main_page"))
         self.quit_fr.place(x=1120, y=650)

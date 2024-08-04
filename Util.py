@@ -3,7 +3,6 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 
 
-
 def create_image(root, width, height, photo_path):
     frame = Frame(root)
     frame.pack()
@@ -69,7 +68,6 @@ def create_password(window, width, height, font=("Helvetica", 12)):
 
     entry = Entry(frame, bg="#D9D9D9", font=font, borderwidth=0, show="*")
     entry.pack(fill=BOTH, expand=True)
-    hidden = True
     vision_frame = Frame(parent_frame, width=32, height=32, bg="#D9D9D9")
     vision = Label(vision_frame, image=image_hidden, bg="#D9D9D9", cursor="hand2")
     vision.bind("<Button-1>", hide)
@@ -83,4 +81,3 @@ def create_password(window, width, height, font=("Helvetica", 12)):
 
 image_hide_path = "photos/hidden.png"
 image_show_path = "photos/visible.png"
-
