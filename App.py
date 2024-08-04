@@ -8,6 +8,7 @@ import Car_Rental_View as crv
 import Car_Sale_View as crs
 import User as user
 import MainPage as mp
+import bcrypt
 import Cars as cr
 import DatePicker as dp
 import Util as ut

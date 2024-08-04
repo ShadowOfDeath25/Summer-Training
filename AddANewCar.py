@@ -77,13 +77,21 @@ class AddNewCar():
         self.fram6, self.text6.pack()
         self.fram6.place(x=830, y=360)
 
+        self.lbl_top = ut.create_label(self.root, 120, 25, text='Top Speed', font=("Inter", 16))
+        self.lbl_top.pack()
+        self.lbl_top.place(x=60, y=450)
+
+        self.fram_top, self.top = ut.create_entry(self.root, width=365, height=35)
+        self.fram_top, self.top.pack()
+        self.fram_top.place(x=60, y=475)
+
         self.lbl8 = ut.create_label(self.root, 120, 25, text='Description', font=("Inter", 16))
         self.lbl8.pack()
-        self.lbl8.place(x=60, y=460)
+        self.lbl8.place(x=60, y=565)
 
         self.fram7, self.text7 = ut.create_text_area(self.root, width=356, height=72)
         self.fram7, self.text7.pack()
-        self.fram7.place(x=60, y=485)
+        self.fram7.place(x=60, y=595)
 
         self.fram, self.btn_upload = ut.create_button(self.root, 170, 40, color='red', text='Upload Photo',
                                                       font=("Inter", 16))
@@ -130,7 +138,7 @@ class AddNewCar():
         manu = self.text3.get()
         year = self.text6.get()
         engine_capacity = int(self.text5.get())
-        top_speed = 200
+        top_speed = int(self.top.get())
         price = int(self.text4.get())
         photo_path = "photos/01.jpg"
         car_description = self.text7.get()
@@ -142,7 +150,7 @@ class AddNewCar():
             cursor.execute("INSERT INTO cars "
                            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                            (car_id,
-                            "0ac7cfa2-46ed-421a-ab86-b7cb68e97e62",
+                            "6f477736-b83b-4c37-9c88-0a16afa98ffb",
                             model,
                             manu,
                             year,
