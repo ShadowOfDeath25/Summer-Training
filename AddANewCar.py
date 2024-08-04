@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 import mysql.connector
 from tkinter import messagebox
 from tkinter import ttk
@@ -24,8 +25,13 @@ class AddNewCar():
     center_y = int(screen_height / 2 - window_height / 2)
     root.resizable(False, False)
 
+
+
     def __init__(self):
 
+
+
+        self.filepath = None
         self.lbl1 = ut.create_label(self.root, width=293, height=62, text='Add A New Car', font=('Helvetica', 30))
         self.lbl1.pack()
 
@@ -96,6 +102,7 @@ class AddNewCar():
         self.fram, self.btn_upload = ut.create_button(self.root, 170, 40, color='red', text='Upload Photo',
                                                       font=("Inter", 16))
         self.fram, self.btn_upload.pack()
+        self.btn_upload.config(command=self.open_file)
         self.fram.place(x=830, y=460)
 
         self.lbl9 = ut.create_label(self.root, 100, 25, text='Photo.jpg', font=("Inter", 12))
@@ -130,6 +137,15 @@ class AddNewCar():
 
         self.root.mainloop()
 
+        self.photo = ''
+
+
+    def open_file(self):
+        filepath =filedialog.askopenfilename()
+        self.photo = filepath
+
+
+
     def confirm(self):
         car_id = str(uuid.uuid4())
         owner_id = User.current_user.id
@@ -140,30 +156,27 @@ class AddNewCar():
         engine_capacity = int(self.text5.get())
         top_speed = int(self.top.get())
         price = int(self.text4.get())
-        photo_path = "photos/01.jpg"
-        car_description = self.text7.get()
+        photo_path = self.photo
+        car_description = self.text7.get("1.0",END)
         op_type = self.rbtn_var.get()
         state = "available"
         dbc = db.connect_db()
         cursor = dbc.cursor()
-        try:
-            cursor.execute("INSERT INTO cars "
-                           "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                           (car_id,
-                            "6f477736-b83b-4c37-9c88-0a16afa98ffb",
-                            model,
-                            manu,
-                            year,
-                            engine_capacity,
-                            horsepower,
-                            top_speed,
-                            price,
-                            photo_path,
-                            car_description,
-                            op_type,
-                            state))
-        except mysql.connector.errors.ProgrammingError as pe:
-            print(pe.__context__)
+        cursor.execute("INSERT INTO cars "
+                       "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                       (car_id,
+                        owner_id,
+                        model,
+                        manu,
+                        year,
+                        engine_capacity,
+                        horsepower,
+                        top_speed,
+                        price,
+                        photo_path,
+                        car_description,
+                        op_type,
+                        state))
         dbc.commit()
         dbc.close()
 
