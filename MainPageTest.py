@@ -162,7 +162,12 @@ class MainPage(Frame):
         self.parent_frame.place(x=0, y=100)
 
         # أزرار في الأسفل
-      
+        self.back_btn_frame, self.back_btn = ut.create_button(self, 121, 40, "red", "Back")
+        self.quit_btn_frame, self.quit_btn = ut.create_button(self, 121, 40, "grey", "Quit")
+        self.back_btn_frame.place(x=980, y=660)
+        self.quit_btn_frame.place(x=1127, y=660)
+        self.quit_btn.config(command=lambda: controller.destroy())
+        self.back_btn.config(command=lambda: controller.show_frame("MainPage"))
 
         
     def for_sale(self, event):
