@@ -51,7 +51,7 @@ class rentedCars:
     
     f="Helvetica", 17
     f1="Helvetica", 14
-    lbl1=ut.create_label(root,width=274,height=17,text="Rented Cars",font=f)
+    lbl1=ut.create_label(root,width=274,height=17,text="Rented Cars",font=("Helvetica", 17))
     lbl1.place(x=32,y=30)
     fram1, btn_back = ut.create_button(root, 121, 40, color='red', text='Back', font=f1)
     fram1, btn_back.pack()
