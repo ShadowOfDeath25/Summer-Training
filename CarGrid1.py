@@ -74,7 +74,6 @@ class CarGrid(Frame):
                               compound=LEFT,
                               padx=20)
 
-            # إنشاء زر المسح
             delete_frame, btn_delet = ut.create_button(frame, 117, 40, "red", "Delete")
             car_label.place(x=0, y=0)
             delete_frame.place(x=1078, y=52)
@@ -83,8 +82,7 @@ class CarGrid(Frame):
             btn_delet.config(
                 command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f, car))
 
-            # وضع العناصر في الشبكة
-            self.cars_frames[photo_counter].grid(row=counter)
+            self.cars_frames[photo_counter].grid(row=counter, pady=10)
 
             photo_counter += 1
             counter += 1

@@ -8,6 +8,7 @@ import User as u
 import uuid
 import Cars as cr
 
+
 class Date_Picker(Frame):
     def __init__(self, parent, controller, car=None):
         super().__init__(parent)
@@ -15,20 +16,22 @@ class Date_Picker(Frame):
         self.pack_propagate(False)
         self.grid_propagate(False)
         self.car = car
-        self.win=Frame(self)
+        self.win = Frame(self)
         self.win.grid(row=0, column=0, sticky=NSEW)
         self.win.config(width=540, height=400, bg="#FFFFFF")
         self.win.pack_propagate(False)
         self.win.grid_propagate(False)
-        self.win.place(x=370,y=160)
+        self.win.place(x=370, y=160)
         self.frame = Frame(self.win)
         self.frame.grid(row=0, column=0, sticky=(W, E, N, S))
         self.frame.config(bg="#FFFFFF")
         # Calendar widgets
-        self.time=datetime.strptime(datetime.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        self.start_cal = Calendar(self.frame, selectmode='day', year=self.time.year, month=self.time.month, day=self.time.day, date_pattern="d/m/Y")
+        self.time = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
+        self.start_cal = Calendar(self.frame, selectmode='day', year=self.time.year, month=self.time.month,
+                                  day=self.time.day, date_pattern="d/m/Y")
         self.start_cal.grid(row=0, column=0, padx=10, pady=10)
-        self.end_cal = Calendar(self.frame, selectmode='day', year=self.time.year, month=self.time.month, day=self.time.day, date_pattern="d/m/Y")
+        self.end_cal = Calendar(self.frame, selectmode='day', year=self.time.year, month=self.time.month,
+                                day=self.time.day, date_pattern="d/m/Y")
         self.end_cal.grid(row=0, column=1, padx=10, pady=10)
         # Labels
         self.start_lbl = ut.create_label(self.win, 90, 50, 'Start Date : \n\n' + self.start_cal.get_date())
@@ -38,18 +41,18 @@ class Date_Picker(Frame):
         self.price_lbl = ut.create_label(self.win, 120, 50,
                                          'Days : ' + str(0) + '\n\nPrice : ' + str(0))
         self.price_lbl.place(x=205, y=280)
-        #btn
+        # btn
         self.set_fr, self.set_btn = ut.create_button(self.win, 105, 40, 'red', text='Set Dates')
         self.set_fr.place(x=220, y=220)
         self.set_btn.config(command=lambda Car=car: self.get_dates(Car))
         self.rent_fr, self.rent_btn = ut.create_button(self.win, 105, 40, 'red', text='Rent')
         self.rent_fr.place(x=80, y=350)
-        self.rent_btn.config(command=lambda Car=car,control=controller: self.set_data(control,Car))
+        self.rent_btn.config(command=lambda Car=car, control=controller: self.set_data(control, Car))
         self.back_fr, self.back_btn = ut.create_button(self.win, 105, 40, 'red', text='Back')
         self.back_fr.place(x=350, y=350)
-        self.back_btn.config(command=lambda :controller.show_frame("car_rent_view",car))
+        self.back_btn.config(command=lambda: controller.show_frame("car_rent_view", car))
 
-    def get_dates(self , Car):
+    def get_dates(self, Car):
         start_date = self.start_cal.get_date()
         end_date = self.end_cal.get_date()
         start_lbl = ut.create_label(self.win, 90, 50, 'Start Date : \n\n' + start_date)
@@ -66,24 +69,24 @@ class Date_Picker(Frame):
         price_lbl.place(x=205, y=280)
 
     def set_data(self, control, Car):
-        #curr_db = db.connect_db()
-        #cursor = curr_db.cursor()
+        curr_db = db.connect_db()
+        cursor = curr_db.cursor()
         start_date = self.start_cal.get_date()
         end_date = self.end_cal.get_date()
         date_format = "%d/%m/%Y"
-        start=datetime.strptime(start_date, date_format)
-        end=datetime.strptime(end_date, date_format)
+        start = datetime.strptime(start_date, date_format)
+        end = datetime.strptime(end_date, date_format)
         delta = end - start
         price = delta.days * Car.price
         rental_id = str(uuid.uuid4())
         values = (rental_id, Car.id, Car.owner_id, u.current_user.id,
-                  str(start.year)+'-'+str(start.month)+"-"+str(start.day)
-                  ,str(end.year)+'-'+str(end.month)+"-"+str(end.day),
+                  datetime(start.year, start.month, start.day)
+                  ,datetime(end.year, end.month, end.day),
                   price)
-        #cursor.execute(
-        #    "INSERT INTO rentals (rental_id, car_id, owner_id,renter_id, rental_date, return_date, price) VALUES (%s,%s,%s,%s,%s,%s,%s)",
-        #    values)
-        #cursor.execute("update cars set state='unavailable' where car_id=%s", Car.id)
-        #curr_db.commit()
-        #curr_db.close()
+        cursor.execute(
+            "INSERT INTO rentals (rental_id, car_id, owner_id,renter_id, rental_date, return_date, price) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+            values)
+        cursor.execute("update cars set state='unavailable' where car_id=%s", (Car.id,))
+        curr_db.commit()
+        curr_db.close()
         control.show_frame("main_page")

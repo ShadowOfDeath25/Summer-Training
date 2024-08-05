@@ -16,12 +16,11 @@ class Cars:
     description = ""
     op_type = ""
     state = ""
-    owner_phone = ""
     return_date = datetime.datetime.now()
     rental_date = datetime.datetime.now()
 
     def __init__(self, manu, model, year, ID, owner_id, engine_capacity, horsepower, top_speed, price, photo_path,
-                 description, op_type, state, owner_phone, return_date, rental_date):
+                 description, op_type, state, return_date, rental_date):
         self.manu = manu
         self.model = model
         self.year = year
@@ -35,10 +34,10 @@ class Cars:
         self.description = description
         self.op_type = op_type
         self.state = state
-        self.owner_phone = owner_phone
+
         self.return_date = return_date
         self.rental_date = rental_date
 
 
-placeholder = Cars("", "", "", "", "", "", "", "", "", "photos/01.jpg", "", "", "", "", datetime.datetime.now(),
+placeholder = Cars("", "", "", "", "", "", "",  "", "photos/01.jpg", "", "", "", "", datetime.datetime.now(),
                    datetime.datetime.now())

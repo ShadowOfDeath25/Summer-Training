@@ -1,6 +1,7 @@
 import Car_Rental_View
 import ListedCars
 import Login
+import RentedCars
 import Signup
 from Signup import *
 from tkinter import *
@@ -73,7 +74,9 @@ class App(Tk):
             self.add_car.grid(row=0, column=0)
             self.add_car.tkraise()
         elif frame_name == "rented_cars":
-            pass
+            self.rented_cars = RentedCars.MainPage(self.container, self)
+            self.rented_cars.grid(row=0, column=0)
+            self.rented_cars.tkraise()
 
 
 app = App()

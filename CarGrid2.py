@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import math
 from PIL import ImageTk, Image
-import Cars_For_Rent 
+import Cars_For_Rent
 import DbConnection as dbc
 import Util as ut
 import User as user
@@ -79,14 +79,16 @@ class CarGrid(Frame):
             delete_frame, btn_delet = ut.create_button(frame, 77, 40, "red", "Cancel"
                                                        )
             date_lbl = Label(frame, font=("Helvetica", 9, "bold"),
-                             text="Rental Date: " + car.rental_date + "\nReturn Date: " + car.return_date, bg="#FFFFFF")
+                             text="Rental Date: " + car.rental_date.strftime(
+                                 "%Y / %m / %d ") + "\nReturn Date: " + car.return_date.strftime("%Y / %m / %d"),
+                             bg="#FFFFFF")
             car_label.place(x=0, y=0)
             date_lbl.place(x=1044, y=17)
             delete_frame.place(x=1103, y=60)
 
             self.cars_frames.append(frame)
             btn_delet.config(
-                command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f))
+                command=lambda f=self.cars_frames[photo_counter], cr=car: self.delet_car(f, cr))
 
             # وضع العناصر في الشبكة
             self.cars_frames[photo_counter].grid(row=counter, pady=10)
@@ -95,8 +97,14 @@ class CarGrid(Frame):
             counter += 1
         self.pages[0].tkraise()
 
-    def delet_car(self, f):
+    def delet_car(self, f, cr):
         f.destroy()
+        db = dbc.connect_db()
+        cursor = db.cursor()
+        cursor.execute("DELETE FROM Rentals WHERE car_id= %s", (cr.id,))
+        cursor.execute("UPDATE cars set state ='available' WHERE car_id= %s", (cr.id,))
+        db.commit()
+        db.close()
 
     def on_enter(self, event):
         lbl = event.widget
@@ -126,57 +134,3 @@ class CarGrid(Frame):
         self.prev_btn.config(bg="#EC221F")
         self.curr_page -= 1
         self.pages[self.curr_page].tkraise()
-
-
-cars_for_sale = []
-cars_for_sale.append(Cars_For_Rent.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                                        engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                        photo_path=os.path.normcase(
-                                            "photos/01.jpg"),
-                                        description="Reliable sedan", op_type="Sale",
-                                        state="available",
-                                        owner_phone="01558021688",
-                                        return_date=datetime.datetime.now().strftime("%Y / %m /%d"),
-                                        rental_date=datetime.datetime.now().strftime("%Y / %m / %d")
-                                        ))
-cars_for_sale.append(Cars_For_Rent.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                                        engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                        photo_path=os.path.normcase(
-                                            "photos/01.jpg"),
-                                        description="Reliable sedan", op_type="Sale",
-                                        state="available",
-                                        owner_phone="01558021688",
-                                        return_date=datetime.datetime.now().strftime("%Y / %m /%d"),
-                                        rental_date=datetime.datetime.now().strftime("%Y / %m / %d")
-                                        ))
-cars_for_sale.append(Cars_For_Rent.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                                        engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                        photo_path=os.path.normcase(
-                                            "photos/01.jpg"),
-                                        description="Reliable sedan", op_type="Sale",
-                                        state="available",
-                                        owner_phone="01558021688",
-                                        return_date=datetime.datetime.now().strftime("%Y / %m /%d"),
-                                        rental_date=datetime.datetime.now().strftime("%Y / %m / %d")
-                                        ))
-cars_for_sale.append(Cars_For_Rent.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                                        engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                        photo_path=os.path.normcase(
-                                            "photos/01.jpg"),
-                                        description="Reliable sedan", op_type="Sale",
-                                        state="available",
-                                        owner_phone="01558021688",
-                                        return_date=datetime.datetime.now().strftime("%Y / %m /%d"),
-                                        rental_date=datetime.datetime.now().strftime("%Y / %m / %d")
-                                        ))
-cars_for_sale.append(Cars_For_Rent.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                                        engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                                        photo_path=os.path.normcase(
-                                            "photos/01.jpg"),
-                                        description="Reliable sedan", op_type="Sale",
-                                        state="available",
-                                        owner_phone="01558021688",
-                                        return_date=datetime.datetime.now().strftime("%Y / %m /%d"),
-                                        rental_date=datetime.datetime.now().strftime("%Y / %m / %d")
-                                        ))
-

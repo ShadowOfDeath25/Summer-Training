@@ -1,74 +1,88 @@
 from tkinter import *
-from tkinter import ttk, messagebox
-from PIL import Image, ImageTk
-import mysql.connector
-import os
-import DbConnection as db
+from tkinter import ttk
+
+from PIL import ImageTk
+from PIL import Image
+
+import DbConnection as dbc
+import User
 import Util as ut
-import User as us
-import Cars as cr
-import bcrypt
-import uuid
-class rentedCars:
-    root = Tk()
-    query = ("SELECT * FROM RENTALS "
-             "JOIN CARS on cars.car_id=rentals.car_id "
-             "WHERE RENTALS.renter_id = %s")
+import User as user
+import Cars_For_Rent as car
+import CarGrid2 as cg
+import os as os
+import datetime
 
-    dbc = db.connect_db()
-    cursor = dbc.cursor()
-    cursor.execute(query,us.current_user.id)
-    cars = cursor.fetchall()
 
-    root.geometry('1280x720')
-    root.config(bg="#FFFFFF")
-    title =root.title("rented cars")
-    car1 = Label(root, text="Hyundai Elantra 2022", font=("Helvetica", 16),background='white')
-    car1.place(x=302, y=179, anchor='w')
-    car2 = Label(root, text="BMW M3 2010", font=("Helvetica", 16),background='white')
-    car2.place(x=302, y=346, anchor='w')
-    car3 = Label(root, text="Volkswagen Golf 2005", font=("Helvetica", 16),background='white')
-    car3.place(x=302, y=492, anchor='w')
-    image1_path = "photos/download.jpg"
-    image1 = Image.open(image1_path)
-    image1 = image1.resize((247, 143))
-    photo1 = ImageTk.PhotoImage(image1)
-    lbl =Label(root,image=photo1,height=143,width=248,background='white')
-    lbl.place(x=32,y=117)
-    image2_path = "photos/2010-bmw-m3.jpg"
-    image2 = Image.open(image2_path)
-    image2 = image2.resize((248, 143))
-    photo2 = ImageTk.PhotoImage(image2)
-    lbl =Label(root,image=photo2,height=143,width=248,background='white')
-    lbl.place(x=32,y=270)
-    image3_path = "photos/images.jpg"
-    image3 = Image.open(image3_path)
-    image3 = image3.resize((248, 143))
-    photo3 = ImageTk.PhotoImage(image3)
-    lbl =Label(root,image=photo3,height=143,width=248,background='white')
-    lbl.place(x=32,y=430)
-   
-    
-    f="Helvetica", 17
-    f1="Helvetica", 14
-    lbl1=ut.create_label(root,width=274,height=17,text="Rented Cars",font=("Helvetica", 17))
-    lbl1.place(x=32,y=30)
-    fram1, btn_back = ut.create_button(root, 121, 40, color='red', text='Back', font=f1)
-    fram1, btn_back.pack()
-    fram1.place(x=980, y=660)
-    fram2, btn_quit = ut.create_button(root, 121, 40, color='grey', text='Quit', font=(f1))
-    fram2, btn_quit.pack()
-    fram2.place(x=1127, y=660)
-    def data(y,root):
-        lbl1=ut.create_label(root,width=175,height=44,text="Rent Date : (Rent Date)\nReturn Date (Return Date)",font=("Helvetica", 7))
-        lbl1.place(x=1086,y=y)
-    data(133,root)
-    data(319,root)
-    data(469,root)
-    def cancel(y,root):
-        btn_cancel_fram, btn_cancel = ut.create_button(root, 77, 40, color='red', text='Cancel', font=("Helvetica", 14))
-        btn_cancel_fram.place(x=1133,y=y)
-    cancel(354,root)
-    cancel(168,root)
-    cancel(504,root)
-    root.mainloop()
+class MainPage(Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.config(bg="#FFFFFF", width=1280, height=720)
+        self.pack_propagate(False)
+        self.grid_propagate(False)
+        # Tabs
+        self.lbl1 = ut.create_label(self, width=274, height=17, text="Rented Cars", font=("Helvetica", 17))
+        self.lbl1.place(x=32, y=30)
+
+        # Frames
+        self.parent_frame = Frame(self, bg="#FFFFFF", width=1280, height=600)
+        self.parent_frame.grid_propagate(False)
+        db = dbc.connect_db()
+        self.cars_for_rent = []
+
+        rent_cursor = db.cursor()
+        rent_cursor.execute("SELECT"
+                            " cars.car_id,"
+                            " cars.owner_id,"
+                            " model,"
+                            " manu,"
+                            " manu_year,"
+                            " engine_capacity,"
+                            " horsepower,"
+                            " top_speed,"
+                            " cars.price,"
+                            " photo,"
+                            " car_description,"
+                            " type,"
+                            " state,"
+                            " rental_date,"
+                            " return_date"
+                            " FROM RENTALS "
+                            " JOIN CARS ON cars.car_id = rentals.car_id "
+                            " WHERE type = 'rent'"
+                            " AND Rentals.renter_id = %s"
+                            , (user.current_user.id,))
+        rent_results = rent_cursor.fetchall()
+        db.close()
+        for result in rent_results:
+            self.cars_for_rent.append(
+                car.Cars(ID=result[0],
+                         owner_id=result[1],
+                         model=result[2],
+                         manu=result[3],
+                         year=result[4],
+                         engine_capacity=result[5],
+                         horsepower=result[6],
+                         top_speed=result[7],
+                         price=result[8],
+                         photo_path=os.path.normcase(result[9]),
+                         description=result[10],
+                         op_type=result[11],
+                         state=result[12],
+                         rental_date=result[13],
+                         return_date=result[14]
+                         ))
+
+        self.for_rent_frame = cg.CarGrid(self.parent_frame, controller, self.cars_for_rent)
+        self.for_rent_frame.grid_propagate(False)
+        self.for_rent_frame.grid(row=0, column=0)
+
+        self.parent_frame.place(x=30, y=100)
+
+        self.back_btn_frame, self.back_btn = ut.create_button(self, 121, 40, "red", "Back")
+        self.quit_btn_frame, self.quit_btn = ut.create_button(self, 121, 40, "grey", "Quit")
+
+        self.back_btn_frame.place(x=980, y=660)
+        self.quit_btn_frame.place(x=1127, y=660)
+        self.quit_btn.config(command=lambda: controller.destroy())
+        self.back_btn.config(command=lambda: controller.show_frame("main_page"))
