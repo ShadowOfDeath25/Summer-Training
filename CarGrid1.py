@@ -17,7 +17,8 @@ class CarGrid(Frame):
         self.curr_page = 0
         self.cars_photos = []
         self.cars_frames = []
-        self.config(width=1216, height=463, bg="#FFFFFF")
+        self.config(width=1216, height=500, bg="#FFFFFF")
+        self.tkraise()
         self.grid_propagate(False)
         self.pack_propagate(False)
         # Next and previous buttons
@@ -25,8 +26,8 @@ class CarGrid(Frame):
         self.buttons.grid(row=2, column=0)
         self.next_frame, self.next_btn = ut.create_button(self.buttons, 35, 40, "red", ">")
         self.prev_frame, self.prev_btn = ut.create_button(self.buttons, 35, 40, "red", "<")
-        self.next_frame.pack(side=RIGHT, padx=10)
-        self.prev_frame.pack(side=LEFT, padx=10)
+        self.next_frame.pack(side=RIGHT, padx=5)
+        self.prev_frame.pack(side=LEFT, padx=5)
 
         self.curr_page = 0
         self.next_btn.config(command=self.next_page)
@@ -83,7 +84,7 @@ class CarGrid(Frame):
                 command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f))
 
             # وضع العناصر في الشبكة
-            self.cars_frames[photo_counter].grid(row=counter, pady=10)
+            self.cars_frames[photo_counter].grid(row=counter)
 
             photo_counter += 1
             counter += 1
@@ -156,3 +157,12 @@ cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, ow
                                owner_phone="01558021688"
                                ))
 
+root = Tk()
+root.geometry("1280x720")
+frame = Frame(root)
+frame.pack(fill=BOTH, expand=True)
+frame.pack_propagate(False)
+frame.grid_propagate(False)
+mp = CarGrid(frame, root, cars_for_sale)
+mp.pack(fill=BOTH, expand=True)
+root.mainloop()
