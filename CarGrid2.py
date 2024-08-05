@@ -2,11 +2,10 @@ from tkinter import *
 from tkinter import ttk
 import math
 from PIL import ImageTk, Image
-import Cars_For_Rent
+import Cars_For_Rent 
 import DbConnection as dbc
 import Util as ut
 import User as user
-import Cars as cars
 import os
 import datetime
 
@@ -181,12 +180,3 @@ cars_for_sale.append(Cars_For_Rent.Cars(manu="Toyota", model="Camry", year=2020,
                                         rental_date=datetime.datetime.now().strftime("%Y / %m / %d")
                                         ))
 
-root = Tk()
-root.geometry("1280x720")
-frame = Frame(root)
-frame.pack(fill=BOTH, expand=True)
-frame.pack_propagate(False)
-frame.grid_propagate(False)
-mp = CarGrid(frame, root, cars_for_sale)
-mp.pack(fill=BOTH, expand=True)
-root.mainloop()
