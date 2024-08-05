@@ -1,14 +1,10 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-
 import mysql.connector
-
 import DbConnection as db
 import Util as ut
 import bcrypt
 import uuid
-
-
 class Signup(Frame):
 
     def __init__(self, parent, controller):

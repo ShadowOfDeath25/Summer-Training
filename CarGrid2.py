@@ -74,7 +74,7 @@ class CarGrid(Frame):
                               padx=20)
 
             # إنشاء زر المسح
-            delete_frame, btn_delet = ut.create_button(frame, 117, 40, "red", "Delete")
+            delete_frame, btn_delet = ut.create_button(frame, 117, 40, "red", "Delete"text=)
             car_label.place(x=0, y=0)
             delete_frame.place(x=1078, y=52)
 
@@ -156,3 +156,12 @@ cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, ow
                                owner_phone="01558021688"
                                ))
 
+root = Tk()
+root.geometry("1280x720")
+frame = Frame(root)
+frame.pack(fill=BOTH, expand=True)
+frame.pack_propagate(False)
+frame.grid_propagate(False)
+mp = CarGrid(frame, root, cars_for_sale)
+mp.pack(fill=BOTH, expand=True)
+root.mainloop()

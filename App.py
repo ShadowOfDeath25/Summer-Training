@@ -12,6 +12,7 @@ import bcrypt
 import Cars as cr
 import DatePicker as dp
 import Util as ut
+from AddANewCar import AddNewCar as anc
 
 
 class App(Tk):
@@ -65,7 +66,9 @@ class App(Tk):
         elif frame_name == "listed_cars":
             pass
         elif frame_name == "add_car":
-            pass
+            self.add_car = anc(self.container, self)
+            self.add_car.grid(row=0, column=0)
+            self.add_car.tkraise()
         elif frame_name == "rented_cars":
             pass
 
