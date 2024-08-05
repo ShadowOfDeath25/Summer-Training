@@ -69,7 +69,7 @@ class CarGrid(Frame):
             car_label = Label(frame,
                               image=self.cars_photos[photo_counter],
                               bg="#FFFFFF",
-                              font=("Helvetica", 14,"bold"),
+                              font=("Helvetica", 14, "bold"),
                               text=car_name,
                               compound=LEFT,
                               padx=20)
@@ -81,7 +81,7 @@ class CarGrid(Frame):
 
             self.cars_frames.append(frame)
             btn_delet.config(
-                command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f))
+                command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f, car))
 
             # وضع العناصر في الشبكة
             self.cars_frames[photo_counter].grid(row=counter)
@@ -90,8 +90,13 @@ class CarGrid(Frame):
             counter += 1
         self.pages[0].tkraise()
 
-    def delet_car(self, f):
+    def delet_car(self, f, car):
         f.destroy()
+        db = dbc.connect_db()
+        cursor = db.cursor()
+        cursor.execute("DELETE FROM cars WHERE car_id = %s", (car.id,))
+        db.commit()
+        db.close()
 
     def on_enter(self, event):
         lbl = event.widget
@@ -121,48 +126,3 @@ class CarGrid(Frame):
         self.prev_btn.config(bg="#EC221F")
         self.curr_page -= 1
         self.pages[self.curr_page].tkraise()
-
-
-cars_for_sale = []
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-
-root = Tk()
-root.geometry("1280x720")
-frame = Frame(root)
-frame.pack(fill=BOTH, expand=True)
-frame.pack_propagate(False)
-frame.grid_propagate(False)
-mp = CarGrid(frame, root, cars_for_sale)
-mp.pack(fill=BOTH, expand=True)
-root.mainloop()

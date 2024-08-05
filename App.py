@@ -1,4 +1,5 @@
 import Car_Rental_View
+import ListedCars
 import Login
 import Signup
 from Signup import *
@@ -64,7 +65,9 @@ class App(Tk):
             self.date_picker.grid(row=0, column=0)
             self.date_picker.tkraise()
         elif frame_name == "listed_cars":
-            pass
+            self.listed_cars = ListedCars.MainPage(self.container, self)
+            self.listed_cars.grid(row=0, column=0)
+            self.listed_cars.tkraise()
         elif frame_name == "add_car":
             self.add_car = anc(self.container, self)
             self.add_car.grid(row=0, column=0)
