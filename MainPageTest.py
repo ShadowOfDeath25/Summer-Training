@@ -36,7 +36,7 @@ class MainPage(Frame):
         self.lbl =Label(root,image=self.add_photo,height=32,width=32,background='white')
         self.lbl.place(x=1226,y=22)
         # الإطارات
-        self.parent_frame = Frame(self, bg="#FFFFFF", width=1280, height=473)
+        self.parent_frame = Frame(self, bg="#FFFFFF", width=1280, height=500)
         self.parent_frame.grid_propagate(False)
         db = dbc.connect_db()
         self.cars_for_rent = []
