@@ -11,6 +11,15 @@ import bcrypt
 import uuid
 class rentedCars:
     root = Tk()
+    query = ("SELECT * FROM RENTALS "
+             "JOIN CARS on cars.car_id=rentals.car_id "
+             "WHERE RENTALS.renter_id = %s")
+
+    dbc = db.connect_db()
+    cursor = dbc.cursor()
+    cursor.execute(query,us.current_user.id)
+    cars = cursor.fetchall()
+
     root.geometry('1280x720')
     root.config(bg="#FFFFFF")
     title =root.title("rented cars")

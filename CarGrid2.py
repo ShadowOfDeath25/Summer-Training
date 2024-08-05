@@ -13,11 +13,13 @@ import os
 class CarGrid(Frame):
     def __init__(self, parent, controller, cars_arr):
         Frame.__init__(self, parent)
+        self.rental_dates = []
+
         self.pages = []
         self.curr_page = 0
         self.cars_photos = []
         self.cars_frames = []
-        self.config(width=1216, height=463, bg="#FFFFFF")
+        self.config(width=1216, height=500, bg="#FFFFFF")
         self.grid_propagate(False)
         self.pack_propagate(False)
         # Next and previous buttons
@@ -68,13 +70,14 @@ class CarGrid(Frame):
             car_label = Label(frame,
                               image=self.cars_photos[photo_counter],
                               bg="#FFFFFF",
-                              font=("Helvetica", 14,"bold"),
+                              font=("Helvetica", 14, "bold"),
                               text=car_name,
                               compound=LEFT,
                               padx=20)
 
             # إنشاء زر المسح
-            delete_frame, btn_delet = ut.create_button(frame, 117, 40, "red", "Delete"text=)
+            delete_frame, btn_delet = ut.create_button(frame, 117, 40, "red", "Delete"
+            text =)
             car_label.place(x=0, y=0)
             delete_frame.place(x=1078, y=52)
 
