@@ -155,7 +155,7 @@ class AddNewCar(Frame):
             for error in errors:
                 errors_string += error + "\n"
             messagebox.showerror(title="Error",
-                                 message="Couldn't add car due to the following error(s)" + errors_string)
+                                 message="Couldn't add car due to the following error(s):\n" + errors_string)
 
         else:
             dbc = db.connect_db()
@@ -185,3 +185,5 @@ class AddNewCar(Frame):
             self.text6.delete(0, END)
             self.top.delete(0, END)
             self.text7.delete("1.0", END)
+            self.photo = ""
+            self.lbl9.config(text="")

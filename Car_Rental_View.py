@@ -64,7 +64,7 @@ class Car_Rental_View(Frame):
         self.engine_lbl.place(x=726, y=108)
         self.power_lbl.place(x=1038, y=108)
         self.car_name_lbl.place(x=611, y=35)
-        self.frame = Frame(self, width=1110, height=160, bg="#FFFFFF")
+        self.frame = Frame(self, width=1250, height=160, bg="#FFFFFF")
         self.entry = Text(self.frame, bg="#FFFFFF", font=("Helvetica", 12), borderwidth=0, cursor="arrow")
         self.entry.insert(END, self.car.description)
         self.entry.config(state=DISABLED)
