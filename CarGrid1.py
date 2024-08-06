@@ -17,7 +17,8 @@ class CarGrid(Frame):
         self.curr_page = 0
         self.cars_photos = []
         self.cars_frames = []
-        self.config(width=1216, height=463, bg="#FFFFFF")
+        self.config(width=1216, height=500, bg="#FFFFFF")
+        self.tkraise()
         self.grid_propagate(False)
         self.pack_propagate(False)
         # Next and previous buttons
@@ -25,8 +26,8 @@ class CarGrid(Frame):
         self.buttons.grid(row=2, column=0)
         self.next_frame, self.next_btn = ut.create_button(self.buttons, 35, 40, "red", ">")
         self.prev_frame, self.prev_btn = ut.create_button(self.buttons, 35, 40, "red", "<")
-        self.next_frame.pack(side=RIGHT, padx=10)
-        self.prev_frame.pack(side=LEFT, padx=10)
+        self.next_frame.pack(side=RIGHT, padx=5)
+        self.prev_frame.pack(side=LEFT, padx=5)
 
         self.curr_page = 0
         self.next_btn.config(command=self.next_page)
@@ -68,29 +69,32 @@ class CarGrid(Frame):
             car_label = Label(frame,
                               image=self.cars_photos[photo_counter],
                               bg="#FFFFFF",
-                              font=("Helvetica", 14,"bold"),
+                              font=("Helvetica", 14, "bold"),
                               text=car_name,
                               compound=LEFT,
                               padx=20)
 
-            # إنشاء زر المسح
             delete_frame, btn_delet = ut.create_button(frame, 117, 40, "red", "Delete")
             car_label.place(x=0, y=0)
             delete_frame.place(x=1078, y=52)
 
             self.cars_frames.append(frame)
             btn_delet.config(
-                command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f))
+                command=lambda f=self.cars_frames[photo_counter]: self.delete_car(f, car))
 
-            # وضع العناصر في الشبكة
             self.cars_frames[photo_counter].grid(row=counter, pady=10)
 
             photo_counter += 1
             counter += 1
         self.pages[0].tkraise()
 
-    def delet_car(self, f):
+    def delete_car(self, f, car):
         f.destroy()
+        db = dbc.connect_db()
+        cursor = db.cursor()
+        cursor.execute("DELETE FROM cars WHERE car_id = %s", (car.id,))
+        db.commit()
+        db.close()
 
     def on_enter(self, event):
         lbl = event.widget
@@ -98,7 +102,7 @@ class CarGrid(Frame):
 
     def on_leave(self, event):
         lbl = event.widget
-        lbl.config(font=("Helvetica", 12, "normal"), fg="black")
+        lbl.config(font=("Helvetica", 12, "bold"), fg="black")
 
     def next_page(self):
         if self.curr_page == len(self.pages) - 2:
@@ -120,39 +124,3 @@ class CarGrid(Frame):
         self.prev_btn.config(bg="#EC221F")
         self.curr_page -= 1
         self.pages[self.curr_page].tkraise()
-
-
-cars_for_sale = []
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-cars_for_sale.append(cars.Cars(manu="Toyota", model="Camry", year=2020, ID=1, owner_id=101,
-                               engine_capacity=2500, horsepower=200, top_speed=130, price=25000,
-                               photo_path=os.path.normcase(
-                                   "photos/01.jpg"),
-                               description="Reliable sedan", op_type="Sale",
-                               state="available",
-                               owner_phone="01558021688"
-                               ))
-

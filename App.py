@@ -1,5 +1,7 @@
 import Car_Rental_View
+import ListedCars
 import Login
+import RentedCars
 import Signup
 from Signup import *
 from tkinter import *
@@ -64,13 +66,17 @@ class App(Tk):
             self.date_picker.grid(row=0, column=0)
             self.date_picker.tkraise()
         elif frame_name == "listed_cars":
-            pass
+            self.listed_cars = ListedCars.MainPage(self.container, self)
+            self.listed_cars.grid(row=0, column=0)
+            self.listed_cars.tkraise()
         elif frame_name == "add_car":
             self.add_car = anc(self.container, self)
             self.add_car.grid(row=0, column=0)
             self.add_car.tkraise()
         elif frame_name == "rented_cars":
-            pass
+            self.rented_cars = RentedCars.MainPage(self.container, self)
+            self.rented_cars.grid(row=0, column=0)
+            self.rented_cars.tkraise()
 
 
 app = App()

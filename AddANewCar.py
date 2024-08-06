@@ -1,3 +1,4 @@
+import datetime
 from tkinter import *
 from tkinter import filedialog
 import mysql.connector
@@ -84,9 +85,9 @@ class AddNewCar(Frame):
         self.rbtn_var.set('sale')
 
         self.rbtn1 = Radiobutton(self, value='sale', text="For Sale",
-                                 variable=self.rbtn_var, bg="#FFFFFF", font=("Inter", 10,"bold"))
+                                 variable=self.rbtn_var, bg="#FFFFFF", font=("Inter", 10, "bold"))
         self.rbtn2 = Radiobutton(self, value='rent', text="For Rent", variable=self.rbtn_var, bg="#FFFFFF",
-                                 font=("Inter", 10,"bold"))
+                                 font=("Inter", 10, "bold"))
 
         self.rbtn1.place(x=830, y=540)
         self.rbtn2.place(x=1000, y=540)
@@ -117,32 +118,72 @@ class AddNewCar(Frame):
         car_id = str(uuid.uuid4())
         owner_id = User.current_user.id
         model = self.text1.get()
-        horsepower = int(self.text2.get())
+
         manu = self.text3.get()
         year = self.text6.get()
-        engine_capacity = int(self.text5.get())
-        top_speed = int(self.top.get())
-        price = int(self.text4.get())
+
         photo_path = os.path.normcase(self.photo)
         car_description = self.text7.get("1.0", END)
         op_type = self.rbtn_var.get()
         state = "available"
-        dbc = db.connect_db()
-        cursor = dbc.cursor()
-        cursor.execute("INSERT INTO cars "
-                       "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                       (car_id,
-                        owner_id,
-                        model,
-                        manu,
-                        year,
-                        engine_capacity,
-                        horsepower,
-                        top_speed,
-                        price,
-                        photo_path,
-                        car_description,
-                        op_type,
-                        state))
-        dbc.commit()
-        dbc.close()
+        errors = []
+        if self.photo == '':
+            errors.append("Invalid/Empty Photo")
+        if not self.text2.get().isdigit():
+            errors.append("Invalid Horsepower")
+        else:
+            horsepower = int(self.text2.get())
+        if not self.top.get().isdigit():
+            errors.append("Invalid Top Speed")
+        else:
+            top_speed = int(self.top.get())
+        if not self.text4.get().isdigit():
+            errors.append("Invalid Price")
+        else:
+            price = int(self.text4.get())
+
+        if not self.text5.get().isdigit():
+            errors.append("Invalid Engine Capacity")
+        else:
+            engine_capacity = int(self.text5.get())
+        if not self.text6.get().isdigit() or len(
+                self.text6.get()) > 4 or int(year) < 1900 or int(year) > 2024:
+            errors.append("Invalid Year")
+
+        if len(errors) > 0:
+            errors_string = ""
+            for error in errors:
+                errors_string += error + "\n"
+            messagebox.showerror(title="Error",
+                                 message="Couldn't add car due to the following error(s):\n" + errors_string)
+
+        else:
+            dbc = db.connect_db()
+            cursor = dbc.cursor()
+            cursor.execute("INSERT INTO cars "
+                           "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                           (car_id,
+                            owner_id,
+                            model,
+                            manu,
+                            year,
+                            engine_capacity,
+                            horsepower,
+                            top_speed,
+                            price,
+                            photo_path,
+                            car_description,
+                            op_type,
+                            state))
+            dbc.commit()
+            dbc.close()
+            self.text5.delete(0, END)
+            self.text1.delete(0, END)
+            self.text2.delete(0, END)
+            self.text3.delete(0, END)
+            self.text4.delete(0, END)
+            self.text6.delete(0, END)
+            self.top.delete(0, END)
+            self.text7.delete("1.0", END)
+            self.photo = ""
+            self.lbl9.config(text="")
