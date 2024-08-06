@@ -12,7 +12,8 @@ def create_image(root, width, height, photo_path):
     label = Label(root, image=photo)
     label.image = photo
     label.config(bg="#FFFFFF")
-    return frame, label
+
+    return frame, photo
 
 
 def create_button(window, width, height, color="red", text="Button", font=("Helvetica", 10)):
@@ -33,7 +34,7 @@ def create_entry(window, width, height, font=("Helvetica", 12)):
     frame = Frame(window, width=width, height=height, bg="#D9D9D9")
     entry = Entry(frame, bg="#D9D9D9", font=font, borderwidth=0)
     frame.pack_propagate(False)
-    entry.pack(fill=BOTH, expand=True, padx=10, pady=10)
+    entry.pack(fill=BOTH, expand=True, padx=10)
     return frame, entry
 
 

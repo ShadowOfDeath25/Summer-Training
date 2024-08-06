@@ -80,7 +80,7 @@ class CarGrid(Frame):
 
             self.cars_frames.append(frame)
             btn_delet.config(
-                command=lambda f=self.cars_frames[photo_counter]: self.delet_car(f, car))
+                command=lambda f=self.cars_frames[photo_counter]: self.delete_car(f, car))
 
             self.cars_frames[photo_counter].grid(row=counter, pady=10)
 
@@ -88,7 +88,7 @@ class CarGrid(Frame):
             counter += 1
         self.pages[0].tkraise()
 
-    def delet_car(self, f, car):
+    def delete_car(self, f, car):
         f.destroy()
         db = dbc.connect_db()
         cursor = db.cursor()
@@ -102,7 +102,7 @@ class CarGrid(Frame):
 
     def on_leave(self, event):
         lbl = event.widget
-        lbl.config(font=("Helvetica", 12, "normal"), fg="black")
+        lbl.config(font=("Helvetica", 12, "bold"), fg="black")
 
     def next_page(self):
         if self.curr_page == len(self.pages) - 2:
